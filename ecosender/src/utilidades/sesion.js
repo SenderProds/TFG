@@ -93,33 +93,5 @@ export async function obtenerUsuario(googleData) {
       });
   });
 
-  /*$.post(url, data)
-    .done((response) => {
-      console.log(response);
-    })*/
 
-  //return googleData.credential;
-
-  /*
-    const onSuccess = async (googleData) => {
-      try {
-        // Extraer el token de acceso del objeto googleData
-        const { credential } = googleData;
-  
-        // Decodificar el token JWT para obtener la información del usuario
-        const decodedToken = jwtDecode(credential);
-  
-        // Extraer el nombre de usuario del token decodificado
-        const username = decodedToken.given_name;
-  
-        // Devolver el nombre de usuario
-        return username;
-      } catch (error) {
-        console.error('Error al obtener el nombre de usuario:', error);
-        return null; // En caso de error, devuelve null o maneja el error según sea necesario
-      }
-    };
-  
-    // Llama a la función onSuccess con el objeto googleData y devuelve su resultado
-    return onSuccess(googleData);*/
 }
