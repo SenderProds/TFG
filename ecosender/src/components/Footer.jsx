@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <div className="w-full bg-color1 h-1/5 mt-10">
+      <div className="relative w-full bg-color1 h-1/5 mt-10 z-10">
       <img
               src="/img/ecoSenderIcono_Whute.png"
               alt=""

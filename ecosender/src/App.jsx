@@ -9,6 +9,8 @@ import InicioSesion from "./paginas/InicioSesion";
 import Productos from "./paginas/Productos";
 import Empleados from "./paginas/Empleados";
 import Cuenta from "./paginas/Cuenta";
+import Carrito from "./paginas/Carrito";
+
 
 //DEV
 import Agregar from "./paginas/Agregar";
@@ -30,6 +32,7 @@ function App() {
             <Route path="cuenta" element={<Cuenta/>}/>
             <Route path="agregar" element={<Agregar/>}/>
             <Route path="administrador" element={<Administrador/>}/>
+            <Route path="carrito" element={<Carrito/>}/>
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

@@ -1,6 +1,4 @@
-/*const comprobarSesion = () => {
 
-}*/
 import $ from "jquery";
 
 /**
@@ -58,6 +56,8 @@ export const registro = (e) => {
   }
 };
 
+
+
 /**
  * Comprueba el token JWT para comprobar que sea legitimo
  */
@@ -70,9 +70,11 @@ export async function comprobarJWT(jwt) {
   return new Promise((resolve, reject) => {
     $.post(url, data)
       .done((response) => {
+        console.log(response);
         resolve(response);
       })
       .fail((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR);
         reject(errorThrown); // Rechaza la promesa en caso de error
       });
   });

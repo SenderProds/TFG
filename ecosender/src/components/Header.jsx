@@ -12,8 +12,6 @@ const Header = () => {
       const checkJWT = async () => {
         try {
           let respuesta = await comprobarJWT(loggingStatus);
-          console.log(respuesta);
-          
 
           // Aquí puedes manejar la respuesta para actualizar el estado de `estaLogeado` según sea necesario
           setEstaLogeado(respuesta === "true"); // Ajusta esta lógica según la respuesta real que obtienes
@@ -22,11 +20,8 @@ const Header = () => {
         }
       };
 
-
       checkJWT();
     }
-
-    
 
     setEstaLogeado(loggingStatus === "true");
   }, []);

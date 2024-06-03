@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
-//import $ from "jquery";
+import { comprobarJWT } from "../utilidades/sesion";
+import { agregarAlCarrito } from "../utilidades/carrito";
 import Producto from "../components/Producto";
 import Modal from "../components/Modal";
-
 import BtnCategorias from "../components/BtnCategorias";
+import BtnCarrito from "../components/BtnCarrito";
+import BtnAtencionAlCliente from "../components/BtnAtencionAlCliente";
 
-//import BotonCategoria from "../components/botonCategoria";
+
 
 const Productos = () => {
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [categoria, setCategoria] = useState(1);
+  const [numeroProductosCarrito, setNumeroProductosCarrito] = useState(0);
 
-  const urlApi = "https://ecosender.es/api/productos/obtenerProductosCategoria.php?categoria=" + categoria;
+  const urlApi =
+    "https://ecosender.es/api/productos/obtenerProductosCategoria.php?categoria=" +
+    categoria;
 
   const urlApiCategorias =
     "https://ecosender.es/api/categorias/obtenerCategorias.php";
@@ -43,17 +48,45 @@ const Productos = () => {
    */
   const clickCarrito = (producto) => {
     console.log(producto);
-    setShowModal(true);
+    const loggingStatus = localStorage.getItem("sesion");
+    if (loggingStatus) {
+      const checkJWT = async () => {
+        try {
+          let respuesta = await comprobarJWT(loggingStatus);
+          console.log(respuesta);
+
+          //Si el JWT no es valido saldra que hace falta logearse para agregar productos al carrito
+          if (respuesta == "false") {
+            setShowModal(true);
+          }else{
+            agregarAlCarrito(producto);
+            setNumeroProductosCarrito(numeroProductosCarrito + 1);
+          }
+        } catch (error) {
+          console.error("Error comprobando el JWT:", error);
+        }
+      };
+
+      checkJWT();
+    } else {
+      setShowModal(true);
+    }
   };
 
+  /**
+   * Cerrar el Modal
+   */
   const closeModal = () => {
     setShowModal(false);
   };
 
+  /**
+   * Cuanto se hace click en alguna categoria
+   * @param {*} id
+   */
   const clickCategoria = (id) => {
     setCategoria(id);
     console.log(id);
-    
   };
 
   return (
@@ -81,7 +114,7 @@ const Productos = () => {
         <div className="w-5/6 flex flex-col justify-center items-center">
           <div
             id="contenedorProductos"
-            className="flex flex-wrap justify-center gap-8 mt-6 min-h-screen"
+            className="flex flex-wrap justify-center gap-8 mt-6 min-h-screen z-0"
             data-categoria="1"
           >
             {productos.map((prod) => (
@@ -129,6 +162,8 @@ const Productos = () => {
       </div>
 
       <Modal show={showModal} onClose={closeModal} />
+      <BtnAtencionAlCliente/>
+      <BtnCarrito numeroProductos={numeroProductosCarrito}/>
     </div>
   );
 };
