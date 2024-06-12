@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { comprobarJWT } from "../utilidades/sesion";
+import { comprobarJWT, comprobarGoogleId } from "../utilidades/sesion";
 import { agregarAlCarrito } from "../utilidades/carrito";
 import Producto from "../components/Producto";
 import Modal from "../components/Modal";
 import BtnCategorias from "../components/BtnCategorias";
 import BtnCarrito from "../components/BtnCarrito";
 import BtnAtencionAlCliente from "../components/BtnAtencionAlCliente";
-
-
 
 const Productos = () => {
   const [productos, setProductos] = useState([]);
@@ -49,6 +47,8 @@ const Productos = () => {
   const clickCarrito = (producto) => {
     console.log(producto);
     const loggingStatus = localStorage.getItem("sesion");
+    const googleId = localStorage.getItem("googleId");
+
     if (loggingStatus) {
       const checkJWT = async () => {
         try {
@@ -58,7 +58,7 @@ const Productos = () => {
           //Si el JWT no es valido saldra que hace falta logearse para agregar productos al carrito
           if (respuesta == "false") {
             setShowModal(true);
-          }else{
+          } else {
             agregarAlCarrito(producto);
             setNumeroProductosCarrito(numeroProductosCarrito + 1);
           }
@@ -68,6 +68,25 @@ const Productos = () => {
       };
 
       checkJWT();
+    } else if (googleId) {
+      const comprobarGoId = async () => {
+        try {
+          let respuesta = await comprobarGoogleId(googleId);
+
+          console.log(respuesta);
+
+          if (respuesta == "false") {
+            setShowModal(true);
+          } else {
+            agregarAlCarrito(producto);
+            setNumeroProductosCarrito(numeroProductosCarrito + 1);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      comprobarGoId();
     } else {
       setShowModal(true);
     }
@@ -162,8 +181,11 @@ const Productos = () => {
       </div>
 
       <Modal show={showModal} onClose={closeModal} />
-      <BtnAtencionAlCliente/>
-      <BtnCarrito numeroProductos={numeroProductosCarrito}/>
+
+      <div className="w-3/4">
+        <BtnAtencionAlCliente />
+        <BtnCarrito numeroProductos={numeroProductosCarrito} />
+      </div>
     </div>
   );
 };

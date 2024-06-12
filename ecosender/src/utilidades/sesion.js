@@ -1,5 +1,5 @@
 
-import $ from "jquery";
+import $, { error } from "jquery";
 
 /**
  * Comprueba si el usuario introducido por post es correcto
@@ -20,6 +20,7 @@ export const comprobarLogin = (e) => {
     if (response != "false") {
       console.log("Sesion Iniciada");
       localStorage.setItem("sesion", response);
+      window.location.href = "/cuenta";
     } else {
       console.log("Sesion Incorrecta");
     }
@@ -47,6 +48,7 @@ export const registro = (e) => {
     $.post(url, data).done((response) => {
       if (response == "true") {
         console.log("Usuario registrado");
+        window.location.href = "/inicioSesion";
       } else {
         console.log("El usuario no se ha registro");
       }
@@ -79,6 +81,26 @@ export async function comprobarJWT(jwt) {
       });
   });
 }
+
+export async function comprobarGoogleId(googleId){
+  const url = "https://ecosender.es/api/comprobarGoogleId.php";
+  const data = {
+    googleId: googleId,
+  };
+
+  return new Promise((resolve, reject) => {
+    $.post(url, data)
+    .done((response) => {
+      console.log(response);
+      resolve(response);
+    })
+    .fail((error) => {
+      console.log(error);
+      reject(error);
+    });
+  });
+}
+
 
 export async function obtenerUsuario(googleData) {
   const url = "https://ecosender.es/api/decode.php";

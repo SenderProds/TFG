@@ -10,12 +10,14 @@ import Productos from "./paginas/Productos";
 import Empleados from "./paginas/Empleados";
 import Cuenta from "./paginas/Cuenta";
 import Carrito from "./paginas/Carrito";
+import Checkout from "./paginas/Checkout";
 
 
 //DEV
 import Agregar from "./paginas/Agregar";
 import Footer from "./components/Footer";
 import Administrador from "./paginas/Administrador";
+import Chat from "./paginas/Chat";
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
             <Route path="agregar" element={<Agregar/>}/>
             <Route path="administrador" element={<Administrador/>}/>
             <Route path="carrito" element={<Carrito/>}/>
+            <Route path="checkout" element={<Checkout/>}/>
+            <Route path="chat" element={<Chat/>}/>
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

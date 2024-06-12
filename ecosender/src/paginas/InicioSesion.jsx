@@ -1,10 +1,19 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { comprobarLogin , registro, obtenerUsuario } from "../utilidades/sesion";
+import { comprobarLogin, registro } from "../utilidades/sesion";
 import $ from "jquery";
+import { useNavigate } from "react-router-dom";
+// 'use client';
+import { Divider, TextInput, Tab, TabGroup, TabList } from "@tremor/react";
+import { useEffect } from "react";
 
 //import { useState } from 'react';
 
 const InicioSesion = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    //navigate("/cuenta");
+  }, [localStorage.getItem("sesion")]);
+
   const responseMessage = (googleData) => {
     const url = "https://ecosender.es/api/decode.php";
     const data = {
@@ -12,6 +21,10 @@ const InicioSesion = () => {
     };
 
     $.post(url, data).done((response) => {
+      if (response != "false") {
+        localStorage.setItem("googleId", response);
+        window.location.href = "/cuenta";
+      }
       console.log(response);
     });
   };
@@ -56,108 +69,159 @@ const InicioSesion = () => {
     }
   };
 
-
-
   return (
     <>
       <div className="w-full h-full text-center flex flex-col justify-center items-center">
-        <section className="bg-color1 h-2/5 w-96 rounded-lg shadow-xl">
-          <nav>
-            <ul className="flex p-2">
-              <li className="bg-white p-2 rounded-t-lg m-1 hover:scale-105 cursor-pointer transition ease-in-out">
-                <button id="btnIniciarSesion" onClick={mostrarInicioSesion}>
-                  Iniciar Sesion
-                </button>
-              </li>
-              <li className="bg-white p-2 rounded-t-lg m-1 hover:scale-105 cursor-pointer transition ease-in-out">
-                <button id="btnRegistro" onClick={mostrarRegistro}>
-                  Registro
-                </button>
-              </li>
-            </ul>
-          </nav>
+        <section className="bg-color1 rounded-lg shadow-xl p-4 w-5/6 sm:w-96">
+          <TabGroup>
+            <TabList variant="solid" defaultValue="1">
+              <Tab value="1" onClick={mostrarInicioSesion}>
+                Iniciar Sesion
+              </Tab>
+              <Tab value="2" onClick={mostrarRegistro}>
+                Registrarse
+              </Tab>
+            </TabList>
+          </TabGroup>
 
           {/*FORMULARIO DE INICIO DE SESION*/}
-          <form
-            onSubmit={comprobarLogin}
-            className="flex flex-col justify-center items-center text-white transition ease-in-out"
+
+          <div
+            className="flex min-h-full flex-1 flex-col px-4 lg:px-6"
             id="formularioInicioSesion"
           >
-            <label htmlFor="usuario">Nombre de usuario</label>
-            <input
-              type="text"
-              name="usuario"
-              id="usuario"
-              className="text-black text-center w-3/4 rounded-3xl h-9 m-2"
-              style={{ color: "black" }}
-              autoComplete="off"
-              required
-            />
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
+              <form
+                onSubmit={comprobarLogin}
+                method="post"
+                className="w-full"
+                id=""
+              >
+                <label
+                  htmlFor="email"
+                  className="text-tremor-default font-medium text-white "
+                >
+                  Nombre de Usuario
+                </label>
+                <TextInput
+                  type="text"
+                  id="usuario"
+                  name="usuario"
+                  autoComplete="usuario"
+                  placeholder="Nombre de Usuario"
+                  className="mt-2"
+                />
 
-            <label htmlFor="clave">Clave</label>
-            <input
-              type="password"
-              name="clave"
-              id="clave"
-              className="text-black text-center w-3/4 rounded-3xl h-9 m-2"
-              required
-            />
-
-            <input
-              type="submit"
-              value="Acceder"
-              className="w-3/4 rounded-3xl h-9 m-2 border border-white hover:bg-color2 transition ease-in-out cursor-pointer"
-            />
-            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-          </form>
-
-
+                <label
+                  htmlFor="email"
+                  className="text-tremor-default font-medium text-white dark:text-dark-tremor-content-strong"
+                >
+                  Clave
+                </label>
+                <TextInput
+                  type="password"
+                  id="clave"
+                  name="clave"
+                  autoComplete="clave"
+                  placeholder="Clave"
+                  className="mt-2"
+                />
+                <button
+                  type="submit"
+                  className="mt-4 w-full whitespace-nowrap rounded-tremor-default bg-tremor-brand py-2 text-center text-tremor-default font-medium text-tremor-brand-inverted shadow-tremor-input hover:bg-tremor-brand-emphasis dark:bg-dark-tremor-brand dark:text-dark-tremor-brand-inverted dark:shadow-dark-tremor-input dark:hover:bg-dark-tremor-brand-emphasis"
+                >
+                  Iniciar Sesion
+                </button>
+              </form>
+              <Divider className="text-white">o autenticación con</Divider>
+              <GoogleLogin
+                onSuccess={responseMessage}
+                onError={errorMessage}
+                className="w-full flex justify-center"
+                size="large"
+                theme="filled"
+                logo_alignment="center"
+                text="signin_with"
+              />
+              <p className="mt-4 text-tremor-label text-white p-2">
+                By signing in, you agree to our{" "}
+                <a href="#" className="underline underline-offset-4">
+                  terms of service
+                </a>{" "}
+                and{" "}
+                <a href="#" className="underline underline-offset-4">
+                  privacy policy
+                </a>
+                .
+              </p>
+            </div>
+          </div>
 
           {/*FORMULARIO DE REGISTRO*/}
-          <form
-            onSubmit={registro}
-            id="formularioRegistro"
-            className="flex flex-col justify-center items-center text-white hidden"
-          >
 
-            {/*Correo Electronico del Usuario*/}
-            <label htmlFor="correo">Correo Electronico</label>
-            <input
-              type="email"
-              name="correoReg"
-              id="correoReg"
-              className="text-black text-center w-3/4 rounded-3xl h-9 m-2"
-              autoComplete="off"
-              required
-            />
+          <div className="flex min-h-full flex-1 flex-col px-4 lg:px-6">
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
+              <form
+                onSubmit={registro}
+                method="post"
+                className="w-full hidden"
+                id="formularioRegistro"
+              >
+                <label
+                  htmlFor="correoReg"
+                  className="text-tremor-default font-medium text-white "
+                >
+                  Correo
+                </label>
+                <TextInput
+                  type="email"
+                  id="correoReg"
+                  name="correoReg"
+                  autoComplete="Correo"
+                  placeholder="Correo"
+                  className="mt-2"
+                />
 
-            {/*Nombre del Usuario*/}
-            <label htmlFor="nombreUsuario">Nombre de Usuario</label>
-            <input
-              type="text"
-              name="nombreUsuarioReg"
-              id="nombreUsuarioReg"
-              className="text-black text-center w-3/4 rounded-3xl h-9 m-2"
-              autoComplete="off"
-              required
-            />
+                <label
+                  htmlFor="nombreUsuarioReg"
+                  className="text-tremor-default font-medium text-white dark:text-dark-tremor-content-strong"
+                >
+                  Nombre de Usuario
+                </label>
+                <TextInput
+                  type="text"
+                  id="nombreUsuarioReg"
+                  name="nombreUsuarioReg"
+                  autoComplete="Nombre de Usuario"
+                  placeholder="Nombre de Usuario"
+                  className="mt-2"
+                />
 
-            {/*Clave de usuario*/}
-            <label htmlFor="clave">Clave de Usuario</label>
-            <input
-              type="password"
-              name="claveReg"
-              id="claveReg"
-              className="text-black text-center w-3/4 rounded-3xl h-9 m-2"
-              required
-           />
+                <label
+                  htmlFor="claveReg"
+                  className="text-tremor-default font-medium text-white dark:text-dark-tremor-content-strong"
+                >
+                  Clave
+                </label>
+                <TextInput
+                  type="password"
+                  id="claveReg"
+                  name="claveReg"
+                  autoComplete="clave"
+                  placeholder="Clave"
+                  className="mt-2"
+                />
+                <button
+                  type="submit"
+                  className="mt-4 w-full whitespace-nowrap rounded-tremor-default bg-tremor-brand py-2 text-center text-tremor-default font-medium text-tremor-brand-inverted shadow-tremor-input hover:bg-tremor-brand-emphasis dark:bg-dark-tremor-brand dark:text-dark-tremor-brand-inverted dark:shadow-dark-tremor-input dark:hover:bg-dark-tremor-brand-emphasis"
+                >
+                  Registrarse
+                </button>
+              </form>
+            </div>
+          </div>
 
-            <input
-              type="submit"
-              value={"Registrarse"}
-              className="w-3/4 rounded-3xl h-9 m-2 border border-white hover:bg-color2 transition ease-in-out cursor-pointer"
-            />
-          </form>
+          
         </section>
       </div>
     </>
