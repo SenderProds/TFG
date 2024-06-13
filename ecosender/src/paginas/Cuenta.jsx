@@ -5,9 +5,9 @@ import { FaUser } from "react-icons/fa";
 import { LiaBoxSolid } from "react-icons/lia";
 import { CiLogout } from "react-icons/ci";
 
-import PedidosUsuario from "./cuenta/PedidosUsuario";
-import InstalacionesUsuario from "./cuenta/InstalacionesUsuario";
-import CuentaUsuario from "./cuenta/CuentaUsuario";
+import InstalacionesUsuario from "../components/cuenta/InstalacionesUsuario";
+import CuentaUsuario from "../components/cuenta/CuentaUsuario";
+import PedidosUsuario from "../components/cuenta/PedidosUsuario";
 
 const Cuenta = () => {
   const navigate = useNavigate();
@@ -43,9 +43,7 @@ const Cuenta = () => {
       };
 
       checkJWT();
-    }
-
-    if (googleId) {
+    } else if (googleId) {
       const comprobarGoId = async () => {
         try {
           let respuesta = await comprobarGoogleId(googleId);
@@ -57,6 +55,8 @@ const Cuenta = () => {
       };
 
       comprobarGoId();
+    } else {
+      redirigirIniciarSesion();
     }
 
     //setEstaLogeado(loggingStatus === "true");
@@ -70,6 +70,16 @@ const Cuenta = () => {
     } else if (localStorage.getItem("googleId")) {
       localStorage.removeItem("googleId");
       window.location.reload();
+    }
+  };
+
+  /**
+   * Si no esta logeado redirige al login
+   */
+  const redirigirIniciarSesion = () => {
+    console.log(estaLogeado);
+    if (estaLogeado === false) {
+      navigate("/inicioSesion");
     }
   };
 

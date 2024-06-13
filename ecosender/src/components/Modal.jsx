@@ -1,4 +1,11 @@
-const modal = ({ show, onClose }) => {
+import { useNavigate } from "react-router-dom";
+
+
+
+
+const Modal = ({ show, onClose }) => {
+  const navigate = useNavigate();
+
   if (!show) {
     return null;
   }
@@ -6,11 +13,11 @@ const modal = ({ show, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
       <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
-        <div className="px-4 py-5 sm:p-6 text-center">
+        <div className="px-4 py-5 sm:p-6 text-center flex flex-col">
           <h1>
-            Para poder agregar un producto al carrito, tiene que iniciar sesion.
+            Para poder continuar necesita iniciar sesion.
           </h1>
-          <button>Iniciar Sesion</button>
+          <button className="mt-2" onClick={() => {navigate("/inicioSesion")}}>Iniciar Sesion</button>
 
           <button
             onClick={onClose}
@@ -24,4 +31,4 @@ const modal = ({ show, onClose }) => {
   );
 };
 
-export default modal;
+export default Modal;

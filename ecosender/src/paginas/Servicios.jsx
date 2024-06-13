@@ -1,6 +1,45 @@
+import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
+import { useState } from "react";
+import { comprobarGoogleId, comprobarJWT } from "../utilidades/sesion";
+
 const Servicios = () => {
+  const [mostrarModal, setMostrarModal] = useState();
+  const navigate = useNavigate();
+
+  /**
+   * Al hacer click sobre el servicio,
+   * se comprueba que la sesion esta iniciada
+   * de lo contrario se muestra el ModaL
+   * @param {*} idServicio
+   */
   const solicitudServicio = (idServicio) => {
-    console.log("Solicitud Servicio " + idServicio);
+    let sesion = localStorage.getItem("sesion");
+    let googleId = localStorage.getItem("googleId");
+
+    if (sesion) {
+      let respuesta = comprobarJWT(sesion);
+      console.log(respuesta);
+
+      if (respuesta !== "false") {
+        localStorage.setItem("servicio", idServicio);
+        console.log("Solicitud Servicio " + idServicio);
+        navigate("/solicitarServicio");
+      }else{
+        setMostrarModal(true);
+      }
+
+      
+    } else if (googleId) {
+      let respuesta = comprobarGoogleId(googleId);
+      console.log(respuesta);
+
+      localStorage.setItem("servicio", idServicio);
+      console.log("Solicitud Servicio " + idServicio);
+      navigate("/solicitarServicio");
+    } else {
+      setMostrarModal(true);
+    }
   };
 
   return (
@@ -10,10 +49,6 @@ const Servicios = () => {
 
         <section className="w-full h-auto md:h-screen p-4">
           <div className="flex flex-col md:flex-row justify-between md:space-x-4">
-
-
-
-
             <div
               className="w-full md:w-1/3 flex flex-col mb-4 md:mb-0 hover:scale-105 transition ease-in-out duration-300 cursor-pointer"
               onClick={() => solicitudServicio(1)}
@@ -38,9 +73,6 @@ const Servicios = () => {
               </div>
             </div>
 
-
-
-
             <div
               className="w-full md:w-1/3 flex flex-col mb-4 md:mb-0 hover:scale-105 transition ease-in-out duration-300 cursor-pointer"
               onClick={() => solicitudServicio(2)}
@@ -64,9 +96,6 @@ const Servicios = () => {
                 </section>
               </div>
             </div>
-
-
-            
 
             <div
               className="w-full md:w-1/3 flex flex-col hover:scale-105 transition ease-in-out duration-300 cursor-pointer"
@@ -94,6 +123,8 @@ const Servicios = () => {
           </div>
         </section>
       </div>
+
+      <Modal show={mostrarModal} onClose={() => setMostrarModal(false)} />
     </>
   );
 };

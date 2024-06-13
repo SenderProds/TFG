@@ -4,7 +4,6 @@ import { CiBoxes } from "react-icons/ci";
 import { IoKeyOutline } from "react-icons/io5";
 import {
   MdDriveFileRenameOutline,
-  MdModeEdit,
   MdOutlineLocalPhone,
   MdOutlineMailOutline,
 } from "react-icons/md";

@@ -18,6 +18,7 @@ import Agregar from "./paginas/Agregar";
 import Footer from "./components/Footer";
 import Administrador from "./paginas/Administrador";
 import Chat from "./paginas/Chat";
+import SolicitarServicio from "./paginas/SolicitarServicio";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path="carrito" element={<Carrito/>}/>
             <Route path="checkout" element={<Checkout/>}/>
             <Route path="chat" element={<Chat/>}/>
+            <Route path="solicitarServicio" element={<SolicitarServicio/>}/>
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
