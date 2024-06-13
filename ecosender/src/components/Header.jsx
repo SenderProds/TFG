@@ -43,7 +43,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className="bg-color1 flex justify-between fixed w-full z-30 h-20 sm:h-28 shadow-xl">
+      <nav className="bg-color1 flex justify-between fixed w-full z-30 h-20 sm:h-28 shadow-xl sm:shadow-xl">
         <ul className="w-1/5 xl:w-2/5 cursor-pointer flex items-center pl-4">
           <Link to="/">
             <img
@@ -64,11 +64,11 @@ const Header = () => {
             )}
           </button>
         </div>
-        <ul className={`text-white w-full sm:w-4/5 xl:w-2/5 justify-end sm:justify-around items-center text-xl transition-transform transform ${menuAbierto ? 'translate-x-0' : 'translate-x-full'} sm:transform-none fixed sm:static top-20 sm:top-auto right-0 bg-color1 sm:bg-transparent sm:flex flex-col sm:flex-row`}>
+        <ul className={`text-white w-full sm:w-4/5 xl:w-2/5 justify-end sm:justify-around items-center text-xl transition-transform transform ${menuAbierto ? 'translate-x-0' : 'translate-x-full'} sm:transform-none fixed sm:static top-20 sm:top-auto right-0 bg-color1 sm:bg-transparent sm:flex flex-col sm:flex-row  shadow-xl sm:shadow-none`}>
           <li className="p-4 sm:p-0">
             <Link
               to="/"
-              className="block p-4 hover:bg-color2 transition ease-linear delay-100 duration-300"
+              className="block p-4 hover:bg-color2  transition ease-linear delay-100 duration-300"
               onClick={() => setMenuAbierto(false)}
             >
               Principal

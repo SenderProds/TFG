@@ -8,6 +8,8 @@ import { MdOutlineLocalPhone } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
 import { MdModeEdit } from "react-icons/md";
 import { LuUsers } from "react-icons/lu";
+import { FcGoogle } from "react-icons/fc";
+
 
 
 const PanelClientes = () => {
@@ -42,12 +44,16 @@ const PanelClientes = () => {
                   </div>
                 </th>
 
+                
+
                 <th className="p-4">
                   <div className="flex justify-center items-center">
                     <MdOutlineMailOutline />
                     Correo
                   </div>
                 </th>
+
+                
 
                 <th className="p-4">
                   <div className="flex justify-center items-center">
@@ -93,7 +99,10 @@ const PanelClientes = () => {
                 </td>
 
                 <td className="p-4">{empl.idUsuario}</td>
-                <td>{empl.correo}</td>
+                
+
+                <td className="flex items-center gap-2">{empl.imagen ? (<><img src={empl.imagen} alt="" height={50} width={50} className="rounded-full"/>{empl.correo}
+                </>) : <><img src="https://th.bing.com/th/id/R.1c75547f74d8aa7720a495f208c9b1c8?rik=cm6kaKgbGRM6Cg&pid=ImgRaw&r=0" alt="" height={50} width={50} />{empl.correo}</>}</td>
                 <td>{empl.nombreUsuario}</td>
                 <td>{empl.nif}</td>
                 <td>{empl.telefono}</td>

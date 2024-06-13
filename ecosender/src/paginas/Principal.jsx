@@ -11,15 +11,14 @@ function Principal() {
           />
         </section>
 
-        {/* Welcome Section */}
         <section className="h-auto w-11/12 sm:w-3/4 p-4 sm:p-8 m-6">
           <h1 className="text-2xl sm:text-4xl font-roboto p-4">
             Bienvenido a EcoSender!
           </h1>
           <p className="font-roboto text-sm sm:text-base">
-            En [Nombre de tu Empresa], nos dedicamos apasionadamente a brindar
-            servicios y productos fotovoltaicos de alta calidad para satisfacer
-            las necesidades energéticas de nuestros clientes. Nuestra misión es
+            En EcoSender, nos dedicamos apasionadamente a brindar servicios y
+            productos fotovoltaicos de alta calidad para satisfacer las
+            necesidades energéticas de nuestros clientes. Nuestra misión es
             hacer que la transición a la energía solar sea accesible, fácil y
             emocionante para todos, desde usuarios experimentados hasta aquellos
             que recién están explorando el mundo de la energía renovable. Con
@@ -31,8 +30,7 @@ function Principal() {
           </p>
         </section>
 
-        {/* About Us Section */}
-        <section className="h-auto w-11/12 sm:w-3/4 p-4 sm:p-8 m-6 bg-gray-100 rounded-lg">
+        <section className="h-auto w-12/12 sm:w-full sm:w-3/4 p-4 sm:p-8 mb-6 bg-color1 text-white">
           <h2 className="text-2xl sm:text-4xl font-roboto p-4">
             Sobre Nosotros
           </h2>
@@ -46,15 +44,31 @@ function Principal() {
           </p>
         </section>
 
-        {/* Services Section */}
-        <section className="w-full h-auto sm:h-screen p-4">
+        <section className="w-full h-auto ">
           <div className="flex flex-col sm:flex-row justify-between">
             <img
-              src="/img/solar-panels-1794467_1280.jpg"
+              src="/img/Ee9Td8hBSHW92vH_ydyKlw.png"
               className="w-full sm:w-3/6 h-auto"
               alt="Solar Panels"
             />
-            <div className="w-full sm:w-3/6 flex justify-center align-middle items-center bg-color1 text-white p-4">
+            <div className="relative w-full sm:w-3/6 flex justify-center align-middle items-center bg-color2 text-white p-4">
+              <div className="absolute bg-imagen-planificacion bg-cover bg-center opacity-5 inset-0"></div>
+              <section className="w-full sm:w-2/3">
+                <h2 className="text-2xl sm:text-4xl font-roboto">
+                  Planificación
+                </h2>
+                <p className="text-sm sm:text-base">
+                  Nuestro equipo experto te ayudará a planificar tu sistema
+                  fotovoltaico de manera eficiente, considerando tus necesidades
+                  específicas y optimizando el rendimiento de tu instalación.
+                </p>
+              </section>
+            </div>
+          </div>
+
+          <div className="flex flex-col-reverse sm:flex-row justify-between mt-6">
+            <div className="relative w-full sm:w-3/6 flex justify-center align-middle items-center bg-color1 text-white p-4">
+              <div className="absolute bg-imagen-instalacion bg-cover bg-center opacity-5 inset-0"></div>
               <section className="w-full sm:w-2/3">
                 <h2 className="text-2xl sm:text-4xl font-roboto">
                   Instalaciones Fotovoltaicas
@@ -69,30 +83,55 @@ function Principal() {
                 </p>
               </section>
             </div>
+            <img
+              src="/img/solar-panels-1794467_1280.jpg"
+              className="w-full sm:w-3/6 h-auto"
+              alt="Solar Panels"
+            />
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between mt-6">
+            <img
+              src="/img/mantenimiento-de-instalacion-de-paneles-solares-en-4THGNsFKRbmAYuMDKUPaRQ-lg9YWfJ1RW-X8Nf6vL3u0A.jpeg"
+              className="w-full sm:w-3/6 h-auto"
+              alt="Solar Panels"
+            />
+            <div className="w-full sm:w-3/6 bg-color2 relative text-white p-4 flex justify-center items-center">
+              <div className="absolute inset-0 bg-imagen-mantenimiento bg-cover bg-center opacity-5 "></div>
+              <section className="w-full sm:w-2/3 ">
+                <h2 className="text-2xl sm:text-4xl font-roboto">
+                  Mantenimiento
+                </h2>
+                <p className="text-sm sm:text-base">
+                  Ofrecemos servicios de mantenimiento preventivo y correctivo
+                  para garantizar el óptimo funcionamiento y la longevidad de tu
+                  sistema fotovoltaico, asegurando que continúe produciendo
+                  energía de manera confiable.
+                </p>
+              </section>
+            </div>
           </div>
         </section>
 
-        {/* Products Section */}
-        <section className="h-auto sm:h-3/5 w-11/12 sm:w-3/4 p-4 sm:p-8">
-          <h1 className="text-2xl sm:text-4xl font-roboto p-4">
+        <section className="h-auto sm:h-5/5 w-full sm:w-full bg-color1 mt-6">
+          <h1 className="text-2xl sm:text-4xl font-roboto p-4 text-white">
             Nuestros Productos
           </h1>
           <div className="flex flex-col sm:flex-row w-full justify-around items-center mt-8">
-            <div className="bg-color1 text-white w-full sm:w-1/3 m-3 p-4">
+            <div className="bg-color2 text-white w-full sm:w-1/3 m-3 p-4">
               Placas Solares
             </div>
-            <div className="bg-color1 text-white w-full sm:w-1/3 m-3 p-4">
+            <div className="bg-color2 text-white w-full sm:w-1/3 m-3 p-4">
               Inversores
             </div>
-            <div className="bg-color1 text-white w-full sm:w-1/3 m-3 p-4">
+            <div className="bg-color2 text-white w-full sm:w-1/3 m-3 p-4">
               Baterías
             </div>
           </div>
         </section>
 
-        {/* Testimonials Section */}
         <section className="h-auto w-11/12 sm:w-3/4 p-4 sm:p-8 m-6 bg-gray-100 rounded-lg">
-          <h2 className="text-2xl sm:text-4xl font-roboto p-4">Testimonios</h2>
+          <h2 className="text-2xl sm:text-4xl font-roboto p-4">Opiniones</h2>
           <div className="flex flex-col sm:flex-row justify-around items-center mt-8">
             <div className="bg-white text-black w-full sm:w-1/3 m-3 p-4 rounded-lg shadow-lg">
               <p className="text-sm sm:text-base">
@@ -118,7 +157,6 @@ function Principal() {
           </div>
         </section>
 
-        {/* Contact Us Section */}
         <section className="h-auto w-11/12 sm:w-3/4 p-4 sm:p-8 m-6">
           <h2 className="text-2xl sm:text-4xl font-roboto p-4">Contacto</h2>
           <form className="w-full flex flex-col items-center">

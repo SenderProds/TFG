@@ -51,7 +51,13 @@ export default {
         
       },
       backgroundImage: {
-        'imagen-incio': "url('/img/R.jpg')"
+        'imagen-incio': "url('/img/R.jpg')",
+        'imagen-mantenimiento': "url('/img/mantenimiento-de-instalacion-de-paneles-solares-en-4THGNsFKRbmAYuMDKUPaRQ-lg9YWfJ1RW-X8Nf6vL3u0A.jpeg')",
+        'imagen-instalacion': "url('/img/solar-panels-1794467_1280.jpg')",
+        'imagen-planificacion': "url('/img/Ee9Td8hBSHW92vH_ydyKlw.png')"
+      },
+      backgroundOpacity:{
+        '10': '0.1',
       },
       fontFamily: {
         'roboto': ["Roboto", "sans-serif"]

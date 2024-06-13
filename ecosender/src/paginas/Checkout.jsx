@@ -261,6 +261,7 @@ const Checkout = () => {
                       placeholder="Nombre"
                       className="mt-2"
                       required
+                      value="Nombre"
                     />
                   </div>
                   <div className="col-span-full sm:col-span-3">
@@ -278,6 +279,7 @@ const Checkout = () => {
                       autoComplete="Apellidos"
                       placeholder="Apellidos"
                       className="mt-2"
+                      value="Apellidos"
                       required
                     />
                   </div>
@@ -298,6 +300,7 @@ const Checkout = () => {
                       placeholder="DNI"
                       className="mt-2"
                       required
+                      value="66369970C"
                     />
                   </div>
                   <div className="col-span-full sm:col-span-3">
@@ -315,6 +318,7 @@ const Checkout = () => {
                       autoComplete="Telefono"
                       placeholder="Telefono"
                       className="mt-2"
+                      value="711781616"
                       required
                     />
                   </div>
@@ -334,6 +338,7 @@ const Checkout = () => {
                       autoComplete="street-address"
                       placeholder="Direccion"
                       className="mt-2"
+                      value="Direccion de Ejemplo"
                       required
                     />
                   </div>
@@ -353,6 +358,7 @@ const Checkout = () => {
                       placeholder="Ciudad"
                       className="mt-2"
                       required
+                      value="Granada"
                     />
                   </div>
 
@@ -371,6 +377,7 @@ const Checkout = () => {
                       placeholder="Codigo Postal"
                       className="mt-2"
                       required
+                      value="18220"
                     />
                   </div>
                 </div>

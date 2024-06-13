@@ -15,6 +15,8 @@ const InicioSesion = () => {
   }, [localStorage.getItem("sesion")]);
 
   const responseMessage = (googleData) => {
+    console.log(googleData);
+
     const url = "https://ecosender.es/api/decode.php";
     const data = {
       jwt: googleData.credential,

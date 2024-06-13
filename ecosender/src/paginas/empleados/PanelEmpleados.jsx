@@ -8,6 +8,7 @@ import { MdOutlineLocalPhone } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
 import { MdModeEdit } from "react-icons/md";
 import { LuUsers } from "react-icons/lu";
+import { Button } from '@tremor/react';
 
 const PanelEmpleados = () => {
   const [empleados, setEmpleados] = useState([]);
@@ -22,9 +23,13 @@ const PanelEmpleados = () => {
   }, []);
   return (
     <>
-      <div className=" flex justify-center">
-        <div className="bg-white rounded-xl p-4 shadow-md mt-6">
-          <h1 className="font-bold flex items-center">
+      <div className=" flex flex-col justify-center items-center">
+        <div className="bg-white rounded-xl p-4 shadow-md mt-4 w-5/6">
+          <button>Agregar Empleado</button>
+        </div>
+
+        <div className="bg-white rounded-xl p-4 shadow-md mt-4 w-5/6 flex flex-col items-center">
+          <h1 className="font-bold flex items-center justify-start w-full">
             <LuUsers />
             Lista de empleados
           </h1>

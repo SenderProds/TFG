@@ -6,6 +6,7 @@ import Modal from "../components/Modal";
 import BtnCategorias from "../components/BtnCategorias";
 import BtnCarrito from "../components/BtnCarrito";
 import BtnAtencionAlCliente from "../components/BtnAtencionAlCliente";
+import { FiChevronsRight } from "react-icons/fi";
 
 const Productos = () => {
   const [productos, setProductos] = useState([]);
@@ -111,9 +112,12 @@ const Productos = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex justify-around">
+        <div className="fixed left-0 p-2 bg-color1 shadow-xl rounded-r-3xl z-20 mt-3 text-xl text-white sm:hidden">
+          <FiChevronsRight />
+        </div>
         <div
           id="panelLateralProductos"
-          className="fixed top-0 left-0 flex flex-col w-1/6 bg-white mt-36"
+          className="sm:fixed top-0 left-0 flex flex-col sm:w-1/6 bg-white mt-36 md:flex hidden"
         >
           <h3 className="bg-color1 w-4/4 p-2 text-white rounded-r-3xl w-full text-center mb-4 font-bold font-roboto">
             Categorias
@@ -130,7 +134,7 @@ const Productos = () => {
 
         <div className="w-1/6"></div>
 
-        <div className="w-5/6 flex flex-col justify-center items-center">
+        <div className="w-6/6  sm:w-5/6 flex flex-col justify-center items-center">
           <div
             id="contenedorProductos"
             className="flex flex-wrap justify-center gap-8 mt-6 min-h-screen z-0"
@@ -147,7 +151,7 @@ const Productos = () => {
             ))}
           </div>
 
-          <div className="mt-6 flex shadow-md rounded-lg w-2/6 justify-center">
+          <div className="mt-6 flex shadow-md rounded-lg w-2/6 justify-center hidden">
             <button className="bg-color1 text-white p-3 m-2 rounded-md transition ease-in-out hover:bg-white hover:scale-105 border hover:border-color1 hover:text-color1 hover:shadow-md">
               &#60;
             </button>

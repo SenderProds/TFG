@@ -14,9 +14,11 @@ import PanelPedidos from "./empleados/PanelPedidos";
 import PanelIngresos from "./empleados/PanelIngresos";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import PanelAtencionAlCliente from "./empleados/PanelAtencionAlCliente";
+import { FaRegEnvelope } from "react-icons/fa";
+
 
 const Empleados = () => {
-  const [componenteActivo, setComponenteActivo] = useState("Ingresos");
+  const [componenteActivo, setComponenteActivo] = useState("Empleados");
   const [estaLogeado, setEstaLogeado] = useState(false);
   const [rangoEmpleado, setRangoEmpleado] = useState();
 
@@ -82,35 +84,43 @@ const Empleados = () => {
                   className="w-1/6 h-screen flex flex-col border border-2 border-t-0 border-b-0"
                 >
                   <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 gap-2"
                     onClick={() => setComponenteActivo("Empleados")}
                   >
                     <GrUserWorker /> Empleados{" "}
                   </button>
                   <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 gap-2"
                     onClick={() => setComponenteActivo("Clientes")}
                   >
                     <FaUser /> Clientes
                   </button>
                   <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 gap-2"
                     onClick={() => setComponenteActivo("Pedidos")}
                   >
                     <LiaBoxSolid /> Pedidos
                   </button>
                   <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 gap-2"
                     onClick={() => setComponenteActivo("Ingresos")}
                   >
                     <ImStatsDots /> Ingresos
                   </button>
                   <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 gap-2"
                     onClick={() => setComponenteActivo("AtencionAlCliente")}
                   >
                     <RiCustomerService2Fill />
                     Atencion al Cliente
+                  </button>
+
+                  <button
+                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 gap-2"
+                    onClick={() => setComponenteActivo("AtencionAlCliente")}
+                  >
+                    <FaRegEnvelope />
+                    Solicitudes
                   </button>
                 </div>
 

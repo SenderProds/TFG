@@ -61,66 +61,62 @@ const Cuenta = () => {
 
     //setEstaLogeado(loggingStatus === "true");
     console.log(estaLogeado);
-  }, [localStorage.getItem('sesion')]);
-
+  }, [localStorage.getItem("sesion")]);
 
   const cerrarSesion = () => {
-    if(localStorage.getItem('sesion')){
-      localStorage.removeItem('sesion');
+    if (localStorage.getItem("sesion")) {
+      localStorage.removeItem("sesion");
       window.location.reload();
-    }else if(localStorage.getItem('googleId')){
-      localStorage.removeItem('googleId');
+    } else if (localStorage.getItem("googleId")) {
+      localStorage.removeItem("googleId");
       window.location.reload();
     }
-  }
+  };
 
-  
   return (
     <>
       {estaLogeado ? (
-        <div className="h-screen">
+        <div className="">
           <div className="flex justify-center">
-            <>
-              <div className="flex w-full">
-                <div
-                  id="menuLateral"
-                  className="w-1/6 h-screen flex flex-col border border-2 border-t-0 border-b-0"
+            <div className="flex w-full">
+              <div
+                id="menuLateral"
+                className="w-1/6 h-screen flex flex-col border border-2 border-t-0 border-b-0"
+              >
+                <button
+                  className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  onClick={() => setComponenteActivo("Pedidos")}
                 >
-                  <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
-                    onClick={() => setComponenteActivo("Pedidos")}
-                  >
-                    <LiaBoxSolid /> Pedidos{" "}
-                  </button>
-                  <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
-                    onClick={() => setComponenteActivo("Instalaciones")}
-                  >
-                    <FaUser /> Instalaciones
-                  </button>
-                  <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
-                    onClick={() => setComponenteActivo("Cuenta")}
-                  >
-                    <FaUser /> Cuenta
-                  </button>
-
-                  <button
-                    className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
-                    onClick={() => cerrarSesion()}
-                  >
-                    <CiLogout /> Cerrar Sesion
-                  </button>
-                </div>
-
-                <div
-                  id="contenido"
-                  className="w-5/6 h-screen bg-slate-200 overflow-y-scroll"
+                  <LiaBoxSolid /> Pedidos{" "}
+                </button>
+                <button
+                  className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  onClick={() => setComponenteActivo("Instalaciones")}
                 >
-                  {componenteRenderizado()}
-                </div>
+                  <FaUser /> Instalaciones
+                </button>
+                <button
+                  className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  onClick={() => setComponenteActivo("Cuenta")}
+                >
+                  <FaUser /> Cuenta
+                </button>
+
+                <button
+                  className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  onClick={() => cerrarSesion()}
+                >
+                  <CiLogout /> Cerrar Sesion
+                </button>
               </div>
-            </>
+
+              <div
+                id="contenido"
+                className="w-5/6 h-screen bg-slate-200 overflow-y-scroll"
+              >
+                {componenteRenderizado()}
+              </div>
+            </div>
           </div>
         </div>
       ) : (
