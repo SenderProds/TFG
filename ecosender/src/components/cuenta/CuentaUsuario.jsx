@@ -6,8 +6,8 @@ import { MdOutlinePassword } from "react-icons/md";
 const CuentaUsuario = () => {
   return (
     <>
-      <div className="flex">
-        <div className="bg-white p-4 m-4 rounded-xl shadow-md w-2/4">
+      <div className="flex flex-col md:flex-row">
+        <div className="bg-white p-4 m-4 rounded-xl shadow-md w-4/4 md:w-2/4">
           <h1 className="font-bold text-xl flex items-center gap-2">
             <IoSettingsOutline />
             Ajustes De Cuenta{" "}
@@ -15,7 +15,7 @@ const CuentaUsuario = () => {
           <p>Actualiza tu informacion personal.</p>
 
           <form action="" className="mt-4">
-            <div className="flex justify-around">
+            <div className=" 2xl:flex justify-around">
               <div>
                 <div className="flex justify-between items-center mt-4 gap-2">
                   <label htmlFor="nombre">Nombre</label>

@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import $ from "jquery";
-import { CiBoxes } from "react-icons/ci";
-import { IoKeyOutline } from "react-icons/io5";
+
 import {
+  CiBoxes,
+  IoKeyOutline,
   MdDriveFileRenameOutline,
   MdOutlineLocalPhone,
   MdOutlineMailOutline,
-} from "react-icons/md";
-import { HiOutlineIdentification } from "react-icons/hi";
+  HiOutlineIdentification,
+} from "../../components/Iconos";
+
 import { PiInvoiceBold } from "react-icons/pi";
 import { FaFileDownload } from "react-icons/fa";
+import axios from "axios";
 
 const PedidosUsuario = (prop) => {
   const [pedidos, setPedidos] = useState([]);
@@ -20,13 +22,18 @@ const PedidosUsuario = (prop) => {
       id: prop.id,
     };
 
-    $.post(url, data)
-      .done((response) => {
-        setPedidos(response);
+    axios
+      .post(url, data, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      .then((response) => {
+        setPedidos(response.data);
         console.log(response);
       })
-      .fail((error) => {
-        console.log(error);
+      .catch((error) => {
+        console.error(error);
       });
   };
 
@@ -36,56 +43,52 @@ const PedidosUsuario = (prop) => {
   return (
     <>
       <div className=" flex justify-center ">
-        <div className="bg-white rounded-xl p-4 shadow-md mt-6 ">
+        <div className="bg-white rounded-xl p-4 shadow-md mt-6 mb-4">
           <h1 className="font-bold flex items-center">
             <CiBoxes />
             Lista de Pedidos
           </h1>
 
-          <table className="dark:divide-gray-700 divide-y divide-gray-200  ">
+          <table className="dark:divide-gray-700 divide-y divide-gray-200 ">
             <thead className=" ">
               <tr>
-                <th className="p-4">
-                  <input type="checkbox" name="" id="" />
-                </th>
-
-                <th className="p-4">
+                <th className="text-xs sm:text-base p-1 sm:p-4 ">
                   <div className="flex justify-center items-center">
-                    <IoKeyOutline />
+                    <IoKeyOutline className="hidden sm:block" />
                     Id
                   </div>
                 </th>
 
-                <th className="p-4">
-                  <div className="flex justify-center items-center">
-                    <MdOutlineMailOutline />
+                <th className="text-xs p-1 sm:p-4 sm:text-base">
+                  <div className="flex justify-center items-center ">
+                    <MdOutlineMailOutline className="hidden sm:block" />
                     IdCliente
                   </div>
                 </th>
 
-                <th className="p-4">
+                <th className="text-xs sm:text-base p-1 sm:p-4 hidden md:block ">
                   <div className="flex justify-center items-center">
-                    <MdDriveFileRenameOutline />
+                    <MdDriveFileRenameOutline className="hidden sm:block" />
                     Fecha
                   </div>
                 </th>
 
-                <th className="p-4">
+                <th className=" text-xs sm:text-base p-1 sm:p-4">
                   <div className="flex justify-center items-center">
-                    <HiOutlineIdentification />
+                    <HiOutlineIdentification className="hidden sm:block" />
                     Hora
                   </div>
                 </th>
-                <th className="p-4">
+                <th className="text-xs sm:text-base p-1 sm:p-4">
                   <div className="flex justify-center items-center">
-                    <MdOutlineLocalPhone />
+                    <MdOutlineLocalPhone className="hidden sm:block" />
                     Total
                   </div>
                 </th>
 
-                <th className="p-4">
+                <th className="text-xs sm:text-base p-4">
                   <div className="flex justify-center items-center">
-                    <PiInvoiceBold />
+                    <PiInvoiceBold className="hidden sm:block" />
                     Descargar
                   </div>
                 </th>
@@ -96,24 +99,20 @@ const PedidosUsuario = (prop) => {
                 key={ped.id}
                 className=" text-center hover:bg-slate-300 cursor-pointer"
               >
-                <td>
-                  <input type="checkbox" name="" id="" />
-                </td>
+                <td className="p-4 text-xs sm:text-base ">{ped.id}</td>
+                <td className="text-xs sm:text-base">{ped.id_cliente}</td>
+                <td className="hidden md:block text-xs sm:text-base">{ped.fecha}</td>
+                <td className="text-xs sm:text-base">{ped.hora}</td>
+                <td className="text-xs sm:text-base">{ped.total}€</td>
 
-                <td className="p-4">{ped.id}</td>
-                <td>{ped.id_cliente}</td>
-                <td>{ped.fecha}</td>
-                <td>{ped.hora}</td>
-                <td>{ped.total}€</td>
-
-                <td>
+                <td className="text-xs sm:text-base">
                   <a
                     href={"https://ecosender.es/api/fact/" + ped.id + ".pdf"}
                     download={ped.id + ".pdf"}
-                    className="text-blue-500 flex justify-center items-center"
+                    className="text-blue-500 flex justify-center items-center text-xl sm:text-lg"
                   >
                     <FaFileDownload />
-                    PDF
+                    <p className="hidden sm:block">PDF</p>
                   </a>
                 </td>
               </tr>

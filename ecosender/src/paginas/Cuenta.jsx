@@ -88,32 +88,32 @@ const Cuenta = () => {
       {estaLogeado ? (
         <div className="">
           <div className="flex justify-center">
-            <div className="flex w-full">
+            <div className="flex w-full ">
               <div
                 id="menuLateral"
-                className="w-1/6 h-screen flex flex-col border border-2 border-t-0 border-b-0"
+                className="w-1/6 h-screen flex flex-col border border-2 border-t-0 border-b-0 hidden md:block pr-2"
               >
                 <button
-                  className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  className="w-full flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 "
                   onClick={() => setComponenteActivo("Pedidos")}
                 >
                   <LiaBoxSolid /> Pedidos{" "}
                 </button>
                 <button
-                  className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  className="w-full flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
                   onClick={() => setComponenteActivo("Instalaciones")}
                 >
                   <FaUser /> Instalaciones
                 </button>
                 <button
-                  className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  className="w-full flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
                   onClick={() => setComponenteActivo("Cuenta")}
                 >
                   <FaUser /> Cuenta
                 </button>
 
                 <button
-                  className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  className="w-full flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
                   onClick={() => cerrarSesion()}
                 >
                   <CiLogout /> Cerrar Sesion
@@ -122,7 +122,7 @@ const Cuenta = () => {
 
               <div
                 id="contenido"
-                className="w-5/6 h-screen bg-slate-200 overflow-y-scroll"
+                className="w-full md:w-5/6 h-screen bg-slate-200 overflow-y-scroll "
               >
                 {componenteRenderizado()}
               </div>

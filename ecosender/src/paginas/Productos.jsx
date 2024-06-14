@@ -6,7 +6,10 @@ import Modal from "../components/Modal";
 import BtnCategorias from "../components/BtnCategorias";
 import BtnCarrito from "../components/BtnCarrito";
 import BtnAtencionAlCliente from "../components/BtnAtencionAlCliente";
-import { FiChevronsRight } from "react-icons/fi";
+import { FiChevronsRight } from "../components/Iconos";
+import axios from "axios";
+
+
 
 const Productos = () => {
   const [productos, setProductos] = useState([]);
@@ -15,30 +18,39 @@ const Productos = () => {
   const [categoria, setCategoria] = useState(1);
   const [numeroProductosCarrito, setNumeroProductosCarrito] = useState(0);
 
-  const urlApi =
-    "https://ecosender.es/api/productos/obtenerProductosCategoria.php?categoria=" +
-    categoria;
+  //const urlApi =
+  //  "https://ecosender.es/api/productos/obtenerProductosCategoria.php?categoria=" +
+   // categoria;
 
-  const urlApiCategorias =
-    "https://ecosender.es/api/categorias/obtenerCategorias.php";
+  const urlApi = "https://ecosender.es/api2/public/api/v1/productosCategoria?categoria="+categoria;
+
+  //const urlApiCategorias ="https://ecosender.es/api/categorias/obtenerCategorias.php";
+
+  const urlApiCategorias ="https://ecosender.es/api2/public/api/v1/categorias";
+
 
   useEffect(() => {
-    fetch(urlApiCategorias)
-      .then((response) => response.json())
-      .then((data) => {
-        setCategorias(data);
-      });
+    axios.get(urlApiCategorias)
+    .then((response) => {
+      setCategorias(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }, []);
 
   /**
    *
    */
   useEffect(() => {
-    fetch(urlApi)
-      .then((response) => response.json())
-      .then((data) => {
-        setProductos(data);
-      });
+    axios.get(urlApi)
+    .then((response) => {
+      setProductos(response.data)
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+
   }, [categoria]);
 
   /**

@@ -1,5 +1,3 @@
-//import { useNavigate } from "react-router-dom";
-
 import { useEffect, useState } from "react";
 import { Button, Divider, Textarea } from "@tremor/react";
 import { Select, SelectItem } from "@tremor/react";
@@ -119,19 +117,81 @@ const SolicitarServicio = () => {
     }
   });
 
+
+  const obtenerIdUsuario = () => {
+    let url = "https://ecosender.es/api/obtenerIdCliente.php";
+    let jwt = localStorage.getItem("sesion");
+    let googleId = localStorage.getItem("googleId");
+
+
+    let data = {};
+    if(jwt){
+      data = {
+        jwt: jwt
+      };
+    }else if (googleId){
+      data = {
+        googleId: googleId
+      };
+    }
+
+    $.post(url, data).done((response) => {
+      setIdUsuario(response);
+      
+    })
+    .fail((error) => {
+      console.error(error);
+    });
+
+
+    
+  }
+
   const enviarSolicitud = (e) => {
     e.preventDefault();
+    let servicioFormulario = document.getElementById(
+      "servicioSeleccionado"
+    ).value;
+    let mensajeFormulario = document.getElementById("mensajeFormulario").value;
+    let jwt = localStorage.getItem("sesion");
+    let googleId = localStorage.getItem("googleId");
+
+    obtenerIdUsuario();
+    //setIdUsuario(obtenerIdUsuario);
+    const url = "https://ecosender.es/api/insertarSolicitud.php";
+
+    let data = {};
+    
+      data = {
+        idUsuario: idUsuario,
+        mensaje: mensajeFormulario,
+        servicio: servicioFormulario,
+      };
+    
+
+    $.post(url, data)
+      .done((response) => {
+        console.log(response);
+      })
+      .fail((error) => {
+        console.error(error);
+      });
+
+    console.log(servicioFormulario);
+    console.log(mensajeFormulario);
   };
 
   /**
    * Comprueba que estan todos los datos del usuario correctamente
    */
   const comprobarDatos = () => {
+    console.log("Comprobando datos");
     let jwt = localStorage.getItem("sesion");
     let googleId = localStorage.getItem("googleId");
     const url = "https://ecosender.es/api/comprobarDatos.php";
 
     if (jwt) {
+      console.log("Login por jwt");
       //Si esta registrado manualmente
       const data = {
         jwt: jwt,
@@ -152,6 +212,7 @@ const SolicitarServicio = () => {
           console.error(error);
         });
     } else if (googleId) {
+      console.log("Login por google");
       //Si esta registrado con google
       const data = {
         googleId: googleId,
@@ -161,9 +222,9 @@ const SolicitarServicio = () => {
         .done((response) => {
           if (response != "true") {
             console.log(response);
-            setIdUsuario(response);
             setDatosNecesario(false);
           } else {
+            setIdUsuario(response);
             setDatosNecesario(true);
           }
         })
@@ -176,7 +237,7 @@ const SolicitarServicio = () => {
   };
 
   useEffect(() => {
-    if (!datosNecesarios) {
+    if (!datosNecesarios || !idUsuario) {
       comprobarDatos();
     }
   }, []);
@@ -204,6 +265,7 @@ const SolicitarServicio = () => {
                   defaultValue={servicioSeleccionado}
                   className="w-2/3"
                   id="servicioSeleccionado"
+                  required
                 >
                   <SelectItem
                     value="1"
@@ -231,14 +293,14 @@ const SolicitarServicio = () => {
                 <></>
               )}
 
-
               <Divider>Formulario</Divider>
 
               <label htmlFor="">Explique</label>
               <Textarea
-                id="descripcion"
+                id="mensajeFormulario"
                 placeholder="Escribe Aqui..."
                 className="mx-auto max-w-xs"
+                required
               />
 
               <Button variant="primary" type="submit">

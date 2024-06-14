@@ -4,18 +4,22 @@ import {
   comprobarJWTEmpleado,
   obtenerRangoEmpleado,
 } from "../utilidades/empleados";
-import { GrUserWorker } from "react-icons/gr";
-import { FaUser } from "react-icons/fa";
-import { LiaBoxSolid } from "react-icons/lia";
-import { ImStatsDots } from "react-icons/im";
+import {
+  GrUserWorker,
+  FaUser,
+  LiaBoxSolid,
+  ImStatsDots,
+  RiCustomerService2Fill,
+  FaRegEnvelope,
+} from "../components/Iconos";
+
+//Importaciones Panel Empleados
 import PanelEmpleados from "./empleados/PanelEmpleados";
 import PanelClientes from "./empleados/PanelClientes";
 import PanelPedidos from "./empleados/PanelPedidos";
 import PanelIngresos from "./empleados/PanelIngresos";
-import { RiCustomerService2Fill } from "react-icons/ri";
 import PanelAtencionAlCliente from "./empleados/PanelAtencionAlCliente";
-import { FaRegEnvelope } from "react-icons/fa";
-
+import PanelSolicitudes from "./empleados/PanelSolicitudes";
 
 const Empleados = () => {
   const [componenteActivo, setComponenteActivo] = useState("Empleados");
@@ -34,6 +38,9 @@ const Empleados = () => {
         return <PanelIngresos />;
       case "AtencionAlCliente":
         return <PanelAtencionAlCliente />;
+
+      case "Solicitudes":
+        return <PanelSolicitudes />;
     }
   };
 
@@ -117,7 +124,7 @@ const Empleados = () => {
 
                   <button
                     className="w-5/6 flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 gap-2"
-                    onClick={() => setComponenteActivo("AtencionAlCliente")}
+                    onClick={() => setComponenteActivo("Solicitudes")}
                   >
                     <FaRegEnvelope />
                     Solicitudes
