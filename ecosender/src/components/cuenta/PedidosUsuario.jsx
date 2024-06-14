@@ -94,7 +94,8 @@ const PedidosUsuario = (prop) => {
                 </th>
               </tr>
             </thead>
-            {pedidos.map((ped) => (
+            {pedidos ? (<>
+              {pedidos.map((ped) => (
               <tr
                 key={ped.id}
                 className=" text-center hover:bg-slate-300 cursor-pointer"
@@ -117,6 +118,8 @@ const PedidosUsuario = (prop) => {
                 </td>
               </tr>
             ))}
+            </>) : <></>}
+            
           </table>
         </div>
       </div>

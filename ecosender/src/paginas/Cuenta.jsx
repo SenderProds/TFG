@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { LiaBoxSolid } from "react-icons/lia";
 import { CiLogout } from "react-icons/ci";
+import { FiChevronsRight } from "../components/Iconos";
 
 import InstalacionesUsuario from "../components/cuenta/InstalacionesUsuario";
 import CuentaUsuario from "../components/cuenta/CuentaUsuario";
@@ -47,8 +48,9 @@ const Cuenta = () => {
       const comprobarGoId = async () => {
         try {
           let respuesta = await comprobarGoogleId(googleId);
-
-          setEstaLogeado(respuesta === "true");
+          setIdUsuario(respuesta);
+          console.log(respuesta);
+          setEstaLogeado(respuesta !== "false");
         } catch (error) {
           console.error(error);
         }
@@ -89,6 +91,9 @@ const Cuenta = () => {
         <div className="">
           <div className="flex justify-center">
             <div className="flex w-full ">
+              <div className="fixed left-0 p-2 bg-color1 shadow-xl rounded-r-3xl z-20 mt-3 text-xl text-white sm:hidden">
+                <FiChevronsRight />
+              </div>
               <div
                 id="menuLateral"
                 className="w-1/6 h-screen flex flex-col border border-2 border-t-0 border-b-0 hidden md:block pr-2"
