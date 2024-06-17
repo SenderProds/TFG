@@ -27,7 +27,7 @@ const FormularioDatosNecesarios = ({submit, texto = "Para poder continuar es nec
                   placeholder="Nombre"
                   className="mt-2"
                   required
-                  value="Nombre"
+                 
                 />
               </div>
               <div className="col-span-full sm:col-span-3">
@@ -45,7 +45,7 @@ const FormularioDatosNecesarios = ({submit, texto = "Para poder continuar es nec
                   autoComplete="Apellidos"
                   placeholder="Apellidos"
                   className="mt-2"
-                  value="Apellidos"
+                  
                   required
                 />
               </div>
@@ -66,7 +66,7 @@ const FormularioDatosNecesarios = ({submit, texto = "Para poder continuar es nec
                   placeholder="DNI"
                   className="mt-2"
                   required
-                  value="66369970C"
+                  
                 />
               </div>
               <div className="col-span-full sm:col-span-3">
@@ -84,7 +84,7 @@ const FormularioDatosNecesarios = ({submit, texto = "Para poder continuar es nec
                   autoComplete="Telefono"
                   placeholder="Telefono"
                   className="mt-2"
-                  value="711781616"
+                  
                   required
                 />
               </div>
@@ -104,7 +104,7 @@ const FormularioDatosNecesarios = ({submit, texto = "Para poder continuar es nec
                   autoComplete="street-address"
                   placeholder="Direccion"
                   className="mt-2"
-                  value="Direccion de Ejemplo"
+                  
                   required
                 />
               </div>
@@ -124,7 +124,7 @@ const FormularioDatosNecesarios = ({submit, texto = "Para poder continuar es nec
                   placeholder="Ciudad"
                   className="mt-2"
                   required
-                  value="Granada"
+                  
                 />
               </div>
 
@@ -143,7 +143,7 @@ const FormularioDatosNecesarios = ({submit, texto = "Para poder continuar es nec
                   placeholder="Codigo Postal"
                   className="mt-2"
                   required
-                  value="18220"
+                  
                 />
               </div>
             </div>

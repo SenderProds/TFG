@@ -18,6 +18,10 @@ const Configurar = () => {
   const [panelesSolares, setPanelesSolares] = useState(); //Guarda los paneles solares
   const [panelSeleccionado, setPanelSeleccionado] = useState(); //Guarda el panel seleccionado por el usuario
   const [mostrarSeleccion, setMostrarSeleccion] = useState(); //Muestra el seleccionado de placas solares
+  const [datosUsuario, setDatosUsuario] = useState();
+  const [coordenadas, setCoordenadas] = useState();
+  const [horasSolDiarias, setHorasSolDiarias] = useState();
+  const [cantidadPaneles, setCantidadPaneles] = useState(1);
 
   /**
    * Comprueba si estan los datos necesarios del usuario en la base de datos
@@ -202,7 +206,10 @@ const Configurar = () => {
       "http://localhost/TFG/laravel/ecosender-api/public/api/v1/obtenerDatosUsuario?id=" +
       idUsuario;
 
-    axios.get(url).then((response) => console.log(response.data));
+    axios.get(url).then((response) => {
+      console.log(response.data);
+      setDatosUsuario(response.data);
+    });
   };
 
   /**
@@ -251,10 +258,43 @@ const Configurar = () => {
     }
   }, []);
 
-  useEffect(() => {}, [obtenerDatosNecesarios()]);
+  useEffect(() => {
+    obtenerDatosNecesarios();
+  }, [idUsuario]);
 
+  useEffect(() => {
+    if (coordenadas) {
+      calcularHorasSol();
+    }
+  }, [coordenadas]);
 
-  
+  const calcularHorasSol = () => {
+    console.log(coordenadas);
+    const url = "https://api.sunrise-sunset.org/json";
+    axios
+      .get(url, {
+        params: {
+          lat: coordenadas.latitud,
+          lng: coordenadas.longitud,
+          formatted: 0,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        const sunrise = new Date(response.data.results.sunrise);
+        const sunset = new Date(response.data.results.sunset);
+        const horasDeSolDiarias = (sunset - sunrise) / (1000 * 60 * 60); // Convertir de milisegundos a horas
+
+        setHorasSolDiarias(horasDeSolDiarias);
+        console.log(
+          `Horas de sol diarias: ${horasDeSolDiarias.toFixed(2)} horas`
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   /**
    * Obtiene los paneles solares de la base de datos
    */
@@ -272,70 +312,86 @@ const Configurar = () => {
       });
   };
 
-
-
+  //Obtiene el id del usuario
   const obtenerIdUsuario = async () => {
-    const url = "http://localhost/TFG/laravel/ecosender-api/public/api/v1/obtenerIdUsuario";
-    let googleId = localStorage.getItem('googleId');
-    let jwt = localStorage.getItem('sesion');
-  
+    const url =
+      "http://localhost/TFG/laravel/ecosender-api/public/api/v1/obtenerIdUsuario";
+    let googleId = localStorage.getItem("googleId");
+    let jwt = localStorage.getItem("sesion");
+
     let data = {};
     if (googleId) {
       data = {
-        googleId: googleId
+        googleId: googleId,
       };
     } else if (jwt) {
       data = {
-        jwt: jwt
+        jwt: jwt,
       };
     }
-  
+
     try {
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
       const formData = new URLSearchParams();
       for (let key in data) {
         formData.append(key, data[key]);
       }
-  
+
       const response = await axios.post(url, formData, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-CSRF-TOKEN': csrfToken
-        }
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       });
-  
+
       console.log(response.data);
+      setIdUsuario(response.data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-  
+
   useEffect(() => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    console.log(csrfToken);
-    if (csrfToken) {
-      obtenerIdUsuario();
-    }
+    obtenerIdUsuario();
   }, []);
 
-  //const url = "https://nominatim.openstreetmap.org/search.php";
+  /**
+   * Cuando esten los datos completado obtiene los datos geograficos
+   */
+  useEffect(() => {
+    console.log(datosUsuario);
+    if (datosCompletado) {
+      if (datosUsuario != "false" && typeof datosUsuario != "undefined") {
+        obtenerDatosGeograficos();
+      }
+    }
+  }, [datosCompletado]);
 
-  /*axios
-    .get(url, {
-      params: {
-        street: "Ambrosio de vico 4",
-        city: "Granada",
-        county: "Albolote",
-        postalCode: 18220,
-        format: "jsonv2",
-      },
-    })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });*/
+  /**
+   * Obtiene los datos geograficos de la ubicacion seleccionada
+   */
+  const obtenerDatosGeograficos = () => {
+    const url = "https://nominatim.openstreetmap.org/search.php";
+    axios
+      .get(url, {
+        params: {
+          street: datosUsuario.Direccion,
+          city: datosNecesarios.ciudad,
+          //county: "Albolote",
+          postalCode: datosNecesarios.codigoPostal,
+          format: "jsonv2",
+        },
+      })
+      .then((response) => {
+        let coordenadas = {
+          longitud: response.data[0].lon,
+          latitud: response.data[0].lat,
+        };
+        setCoordenadas(coordenadas);
+        console.log(response.data[0].lon);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <>
@@ -353,14 +409,14 @@ const Configurar = () => {
           <div>
             <TabGroup>
               <TabList variant="line">
-                <Tab value="1" id="tab1" icon={datosCompletado ? FcOk : ""}>
+                <Tab value="1" id="tab1" icon={datosCompletado ? FcOk : ""} onClick={() => setTabSeleccionado(1)}>
                   1-Datos
                 </Tab>
                 <Tab value="2" id="tab2">
                   2-Panel
                 </Tab>
                 <Tab value="3" id="tab3">
-                  3-strava.com
+                  3-Inversor
                 </Tab>
               </TabList>
             </TabGroup>
@@ -474,14 +530,47 @@ const Configurar = () => {
                                       {panelSeleccionado.titulo}
                                     </div>
 
-                                    <div className="mt-4">
-                                      <h2>Estadisticas Instalacion</h2>
-                                      Coste {panelSeleccionado.precio}
-                                      Potencia{" "}
-                                      {
-                                        panelSeleccionado.caracteristicas
-                                          .potencia
-                                      }
+                                    <div>
+                                      <label htmlFor="cantidad">
+                                        Cantidad de paneles
+                                      </label>
+
+                                      <input
+                                        type="number"
+                                        name="cantidad"
+                                        id="cantidad"
+                                        defaultValue={1}
+                                        min={1}
+                                        onChange={(e) =>
+                                          setCantidadPaneles(e.target.value)
+                                        }
+                                      />
+                                    </div>
+
+                                    <div className="mt-4 flex justify-around w-full">
+                                      <div>
+                                        Coste{" "}
+                                        {cantidadPaneles *
+                                          panelSeleccionado.precio}
+                                        €
+                                      </div>
+
+                                      <div>
+                                        Potencia{" "}
+                                        {cantidadPaneles *
+                                          JSON.parse(
+                                            panelSeleccionado.caracteristicas
+                                          ).potencia}
+                                        W
+                                      </div>
+
+                                      <div>
+                                        kWh/mes:{" "}
+                                        {(
+                                          ((horasSolDiarias / 1000) *
+                                          (cantidadPaneles *JSON.parse(panelSeleccionado.caracteristicas).potencia)) * 30
+                                        ).toFixed(2)}
+                                      </div>
                                     </div>
                                   </>
                                 ) : (

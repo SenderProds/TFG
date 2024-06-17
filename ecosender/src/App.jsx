@@ -20,28 +20,11 @@ import Footer from "./components/Footer";
 import Administrador from "./paginas/Administrador";
 import Chat from "./paginas/Chat";
 import SolicitarServicio from "./paginas/SolicitarServicio";
-import { useEffect } from "react";
-import axios from "axios";
+
 
 
 
 function App() {
-
-  useEffect(() => {
-    const obtenerCsrfToken = async () => {
-      try {
-        const response = await axios.get('http://localhost/TFG/laravel/ecosender-api/public/api/v1/csrf-token');
-        const csrfToken = response.data.csrfToken;
-        document.querySelector('meta[name="csrf-token"]').setAttribute('content', csrfToken);
-        axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
-      } catch (error) {
-        console.error('Error obteniendo el token CSRF:', error);
-      }
-    };
-
-    obtenerCsrfToken();
-  }, []);
-
 
 
   return (
