@@ -79,8 +79,8 @@ const Carrito = () => {
     <>
       <h1>Carrito</h1>
 
-      <div className="flex">
-        <div className="w-4/6">
+      <div className="flex flex-col items-center md:flex-row md:items-stretch">
+        <div className="w-6/6 sm:w-4/6">
           {productos.map((prod) => (
             <div key={prod.id} className="w-full flex justify-around h-48">
               <img
@@ -129,7 +129,7 @@ const Carrito = () => {
           ))}
         </div>
 
-        <div className="w-2/6">
+        <div className="w-6/6 md:w-2/6">
           <div className="bg-slate-400 w-5/6 text-center">
             <h1>
               Total <span className="font-bold">{precioTotal}€</span>

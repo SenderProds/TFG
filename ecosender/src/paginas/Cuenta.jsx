@@ -5,6 +5,8 @@ import { FaUser } from "react-icons/fa";
 import { LiaBoxSolid } from "react-icons/lia";
 import { CiLogout } from "react-icons/ci";
 import { FiChevronsRight } from "../components/Iconos";
+import { FiChevronsLeft } from "react-icons/fi";
+import { IoMdClose } from "react-icons/io";
 
 import InstalacionesUsuario from "../components/cuenta/InstalacionesUsuario";
 import CuentaUsuario from "../components/cuenta/CuentaUsuario";
@@ -12,9 +14,11 @@ import PedidosUsuario from "../components/cuenta/PedidosUsuario";
 
 const Cuenta = () => {
   const navigate = useNavigate();
-  const [componenteActivo, setComponenteActivo] = useState("Pedidos");
+  const [componenteActivo, setComponenteActivo] = useState("Cuenta");
   const [estaLogeado, setEstaLogeado] = useState(false);
   const [idUsuario, setIdUsuario] = useState();
+  const [desplegarMenu, setDesplegarMenu] = useState(false);
+  const [ocultarMenu, setOcultarMenu] = useState(true);
 
   const componenteRenderizado = () => {
     switch (componenteActivo) {
@@ -85,40 +89,91 @@ const Cuenta = () => {
     }
   };
 
+  const despliegaMenu = () => {
+    setOcultarMenu(false);
+
+    setTimeout(() => {
+      setDesplegarMenu(true);
+    }, 100);
+  };
+
+  /**
+   * Oculta el menu primero desplegando el menu
+   * A los cien milisegundos lo oculta para que de tiempo a la transicion
+   *
+   */
+  const ocultaMenu = () => {
+    setDesplegarMenu(false);
+
+    setTimeout(() => {
+      setOcultarMenu(true);
+    }, 100);
+  };
+
   return (
     <>
       {estaLogeado ? (
         <div className="">
           <div className="flex justify-center">
             <div className="flex w-full ">
-              <div className="fixed left-0 p-2 bg-color1 shadow-xl rounded-r-3xl z-20 mt-3 text-xl text-white sm:hidden">
+              {/*Boton para desplegar menu de movil */}
+              <div
+                className={`fixed cursor-pointer left-0 p-2 bg-color1 shadow-xl rounded-r-3xl z-20 mt-3 text-3xl text-white md:hidden ${
+                  desplegarMenu ? "hidden" : "block"
+                } transition ease-in-out duration-200`}
+                onClick={() => despliegaMenu()}
+              >
                 <FiChevronsRight />
               </div>
+
+              {/*Boton para ocultar menu de movil */}
+              <div
+                className={`fixed cursor-pointer left-0 p-2 bg-color1 shadow-xl rounded-r-3xl z-20 mt-3 text-3xl text-white md:hidden ${
+                  desplegarMenu ? "block" : "hidden"
+                } transition ease-in-out duration-200`}
+                onClick={() => ocultaMenu()}
+              >
+                <FiChevronsLeft className="" />
+              </div>
+
               <div
                 id="menuLateral"
-                className="w-1/6 h-screen flex flex-col border border-2 border-t-0 border-b-0 hidden md:block pr-2"
+                className={`${
+                  desplegarMenu ? "translate-x-0" : "-translate-x-full"
+                } ${
+                  ocultarMenu ? "hidden" : "fixed"
+                } bg-white w-full h-full p-12 md:static md:p-0 md:w-1/6 md:translate-x-0 md:h-screen md:flex md:flex-col md:border md:border-2 md:border-t-0 md:border-b-0 md:block md:pr-2 transition-transform duration-200 ease-in-out`}
               >
                 <button
-                  className="w-full flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2 "
-                  onClick={() => setComponenteActivo("Pedidos")}
+                  className="w-full flex items-center justify-start pl-9 p-4 md:rounded-r-full bg-slate-300 mt-2"
+                  onClick={() => {
+                    setComponenteActivo("Cuenta");
+                    ocultaMenu();
+                  }}
+                >
+                  <FaUser /> Cuenta
+                </button>
+                <button
+                  className="w-full flex items-center justify-start pl-9 p-4 md:rounded-r-full bg-slate-300 mt-2 "
+                  onClick={() => {
+                    setComponenteActivo("Pedidos");
+                    ocultaMenu();
+                  }}
                 >
                   <LiaBoxSolid /> Pedidos{" "}
                 </button>
                 <button
-                  className="w-full flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
-                  onClick={() => setComponenteActivo("Instalaciones")}
+                  className="w-full flex items-center justify-start pl-9 p-4 md:rounded-r-full bg-slate-300 mt-2"
+                  onClick={() => {
+                    setComponenteActivo("Instalaciones");
+                    ocultaMenu();
+                  }}
                 >
                   <FaUser /> Instalaciones
                 </button>
-                <button
-                  className="w-full flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
-                  onClick={() => setComponenteActivo("Cuenta")}
-                >
-                  <FaUser /> Cuenta
-                </button>
 
                 <button
-                  className="w-full flex items-center justify-start pl-9 p-4 rounded-r-full bg-slate-300 mt-2"
+                  className="w-full flex items-center justify-start pl-9 p-4 md:rounded-r-full bg-slate-300 mt-2"
                   onClick={() => cerrarSesion()}
                 >
                   <CiLogout /> Cerrar Sesion

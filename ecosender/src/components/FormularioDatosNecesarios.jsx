@@ -1,16 +1,15 @@
 
 import { Callout, Divider, TextInput } from "@tremor/react";
 
-const FormularioDatosNecesarios = (prop) => {
+const FormularioDatosNecesarios = ({submit, texto = "Para poder continuar es necesario que introduzcas los siguientes datos."}) => {
     
     return (<div className="p-4 mt-5 bg-white rounded-lg shadow-md flex flex-col items-center">
         <Callout className="h-24" title="Datos Necesarios" color="emerald">
-          Para poder continuar es necesario que introduzcas
-          los siguientes datos.
+            {texto}
         </Callout>
 
         <div className="sm:mx-auto sm:max-w-2xl">
-          <form onSubmit={prop.submit} method="post" className="mt-8">
+          <form onSubmit={submit} method="post" className="mt-8">
             <div className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-6">
               <div className="col-span-full sm:col-span-3">
                 <label
@@ -162,5 +161,7 @@ const FormularioDatosNecesarios = (prop) => {
         </div>
       </div>);
 }
+
+
 
 export default FormularioDatosNecesarios

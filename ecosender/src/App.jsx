@@ -11,6 +11,7 @@ import Empleados from "./paginas/Empleados";
 import Cuenta from "./paginas/Cuenta";
 import Carrito from "./paginas/Carrito";
 import Checkout from "./paginas/Checkout";
+import Configurar from "./paginas/Configurar";
 
 
 //DEV
@@ -19,9 +20,30 @@ import Footer from "./components/Footer";
 import Administrador from "./paginas/Administrador";
 import Chat from "./paginas/Chat";
 import SolicitarServicio from "./paginas/SolicitarServicio";
+import { useEffect } from "react";
+import axios from "axios";
+
 
 
 function App() {
+
+  useEffect(() => {
+    const obtenerCsrfToken = async () => {
+      try {
+        const response = await axios.get('http://localhost/TFG/laravel/ecosender-api/public/api/v1/csrf-token');
+        const csrfToken = response.data.csrfToken;
+        document.querySelector('meta[name="csrf-token"]').setAttribute('content', csrfToken);
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+      } catch (error) {
+        console.error('Error obteniendo el token CSRF:', error);
+      }
+    };
+
+    obtenerCsrfToken();
+  }, []);
+
+
+
   return (
     <>
       <Router>
@@ -39,6 +61,7 @@ function App() {
             <Route path="checkout" element={<Checkout/>}/>
             <Route path="chat" element={<Chat/>}/>
             <Route path="solicitarServicio" element={<SolicitarServicio/>}/>
+            <Route path="configurar" element={<Configurar/>}/>
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

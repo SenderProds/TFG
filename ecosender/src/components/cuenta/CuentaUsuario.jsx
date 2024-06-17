@@ -7,7 +7,7 @@ const CuentaUsuario = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row">
-        <div className="bg-white p-4 m-4 rounded-xl shadow-md w-4/4 md:w-2/4">
+        <div className="bg-white mt-16 md:mt-4 p-4 m-4 rounded-xl shadow-md w-4/4 md:w-2/4">
           <h1 className="font-bold text-xl flex items-center gap-2">
             <IoSettingsOutline />
             Ajustes De Cuenta{" "}
@@ -19,29 +19,29 @@ const CuentaUsuario = () => {
               <div>
                 <div className="flex justify-between items-center mt-4 gap-2">
                   <label htmlFor="nombre">Nombre</label>
-                  <input type="text" className="rounded-xl" />
+                  <input type="text" className="rounded-xl w-2/3" />
                 </div>
 
                 <div className="flex justify-between items-center mt-4 gap-2">
                   <label htmlFor="dni">DNI</label>
-                  <input type="text" className="rounded-xl" />
+                  <input type="text" className="rounded-xl w-2/3" />
                 </div>
 
                 <div className="flex justify-between items-center mt-4 gap-2">
                   <label htmlFor="direcion">Direccion</label>
-                  <input type="text" className="rounded-xl" />
+                  <input type="text" className="rounded-xl w-2/3" />
                 </div>
               </div>
 
               <div>
                 <div className="flex justify-between items-center mt-4 gap-2">
                   <label htmlFor="apellidos">Apellidos</label>
-                  <input type="text" className="rounded-xl" />
+                  <input type="text" className="rounded-xl w-2/3" />
                 </div>
 
                 <div className="flex justify-between items-center mt-4 gap-2">
                   <label htmlFor="telefono">Telefono</label>
-                  <input type="text" className="rounded-xl" />
+                  <input type="text" className="rounded-xl w-2/3" />
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@ const CuentaUsuario = () => {
           </form>
         </div>
 
-        <div className="w-2/4 bg-white m-4 p-4 rounded-xl shadow-md">
+        <div className="w-4/4 md:w-2/4 bg-white m-4 p-4 rounded-xl shadow-md">
           <h1 className="font-bold text-xl flex gap-2 items-center">
             <MdOutlinePassword />
             Cambiar Clave
@@ -72,10 +72,10 @@ const CuentaUsuario = () => {
         </div>
       </div>
 
-      <div className="flex">
+      <div className="flex w-full">
         <div></div>
 
-        <div className="w-2/4 bg-white m-4 p-4 rounded-xl shadow-md">
+        <div className="w-full md:w-2/4 bg-white m-4 p-4 rounded-xl shadow-md">
           <h1 className="font-bold text-xl">N Pedidos</h1>
           <p>Numero toral de pedidos realizados.</p>
         </div>

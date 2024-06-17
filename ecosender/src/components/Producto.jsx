@@ -21,7 +21,7 @@ function Producto(props) {
           src={props.img}
           alt=""
           height={100}
-          width={100}
+
           className="h-4/6"
         />
         <a href="#" className="h-1/6">

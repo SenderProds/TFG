@@ -15,6 +15,8 @@ const AgregarProductoForm = () => {
     formData.append("precio", $("#precio").val());
     formData.append("stock", $("#stock").val());
     formData.append("idCategoria", $("#idCategoria").val());
+    formData.append("potencia", $("#potencia").val());
+    formData.append("voltaje", $("#voltaje").val());
 
     const fileInput = document.getElementById("imagen");
     const imagen = fileInput.files[0];
@@ -71,6 +73,12 @@ const AgregarProductoForm = () => {
           id="imagen"
           className="border-4 w-2/4"
         />
+
+        <label htmlFor="">Potencia del panel solar (w)</label>
+        <input type="number" name="potencia" id="potencia" />
+
+        <label htmlFor="">Voltaje de trabajo (v)</label>
+        <input type="number" name="voltaje" id="voltaje" />
 
         <label htmlFor="idCategoria">Id Categoria</label>
         <input
