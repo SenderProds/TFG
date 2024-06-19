@@ -134,14 +134,14 @@ const Chat = () => {
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type a message..."
+            placeholder="Escribe un mensaje"
             className="flex-grow border border-gray-300 rounded-lg p-2 focus:outline-none"
           />
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
           >
-            Send
+            Enviar
           </button>
         </div>
       </form>
