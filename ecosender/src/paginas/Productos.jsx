@@ -237,53 +237,60 @@ const Productos = () => {
       <Modal show={showModal} onClose={closeModal} />
 
       {productoSeleccionado && (
-        <div className="fixed top-0 left-0 z-50 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-8 rounded-lg w-5/6">
-            <div className="flex">
-              <div className="w-5/6">
-                <h2 className="text-2xl font-bold mb-4">
-                  {productoSeleccionado.titulo}
-                </h2>
-                <p className="mb-4">{productoSeleccionado.descripcion}</p>
-                <p className="text-lg font-bold">
-                  Precio: {productoSeleccionado.precio}
-                </p>
-              </div>
-
-              <div>
-                <img
+        <div className="fixed inset-0 z-50 flex justify-center items-center bg-gray-900 bg-opacity-50">
+        <div className="bg-white p-4 md:p-8 rounded-lg w-full sm:w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 max-h-full overflow-auto">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-2/3">
+              <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">
+                {productoSeleccionado.titulo}
+              </h2>
+              <p className="mb-2 md:mb-4">{productoSeleccionado.descripcion}</p>
+              <p className="text-lg font-bold">
+                Precio: {productoSeleccionado.precio}
+              </p>
+            </div>
+            <div className="md:w-1/3 mt-4 md:mt-0 md:ml-4">
+              <img
                 src={productoSeleccionado.img}
                 alt={productoSeleccionado.titulo}
-                className="mt-4 rounded-lg"
+                className="rounded-lg w-full"
               />
-              </div>
-            </div>
-
-            <div className="flex justify-center items-center">
-              
-              <label htmlFor="cantidad">Introduce la cantidad</label>
-              <input type="number" name="cantidad" id="cantidad" defaultValue={1} onChange={(e) => obtenerUnidades(e)}/>
-            </div>
-
-            <div className="flex gap-2">
-              <button
-                className="bg-color1 text-white p-3 mt-4 rounded-md transition ease-in-out hover:bg-white hover:text-color1 hover:border-color1 hover:shadow-md"
-                onClick={() => {
-                  clickCarrito(productoSeleccionado);
-                  cerrarDetalleProducto();
-                }}
-              >
-                Agregar al carrito
-              </button>
-              <button
-                className="bg-color1 text-white p-3 mt-4 rounded-md transition ease-in-out hover:bg-white hover:text-color1 hover:border-color1 hover:shadow-md"
-                onClick={cerrarDetalleProducto}
-              >
-                Cerrar
-              </button>
             </div>
           </div>
+      
+          <div className="flex justify-center items-center mt-4">
+            <label htmlFor="cantidad" className="mr-2">Introduce la cantidad</label>
+            <input
+              type="number"
+              name="cantidad"
+              id="cantidad"
+              defaultValue={1}
+              onChange={(e) => obtenerUnidades(e)}
+              className="border rounded p-1"
+            />
+          </div>
+      
+          <div className="flex flex-col sm:flex-row gap-2 mt-4">
+            <button
+              className="bg-color1 text-white p-3 rounded-md transition ease-in-out hover:bg-white hover:text-color1 hover:border-color1 hover:shadow-md flex-1"
+              onClick={() => {
+                clickCarrito(productoSeleccionado);
+                cerrarDetalleProducto();
+              }}
+            >
+              Agregar al carrito
+            </button>
+            <button
+              className="bg-color1 text-white p-3 rounded-md transition ease-in-out hover:bg-white hover:text-color1 hover:border-color1 hover:shadow-md flex-1"
+              onClick={cerrarDetalleProducto}
+            >
+              Cerrar
+            </button>
+          </div>
         </div>
+      </div>
+      
+      
       )}
 
       <div className="w-3/4">
