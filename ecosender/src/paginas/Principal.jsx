@@ -128,24 +128,9 @@ function Principal() {
           </div>
         </section>
 
-        <section className="h-auto sm:h-5/5 w-full sm:w-full bg-color1 mt-6">
-          <h1 className="text-2xl sm:text-4xl font-roboto p-4 text-white">
-            Nuestros Productos
-          </h1>
-          <div className="flex flex-col sm:flex-row w-full justify-around items-center mt-8">
-            <div className="bg-color2 text-white w-full sm:w-1/3 m-3 p-4">
-              Placas Solares
-            </div>
-            <div className="bg-color2 text-white w-full sm:w-1/3 m-3 p-4">
-              Inversores
-            </div>
-            <div className="bg-color2 text-white w-full sm:w-1/3 m-3 p-4">
-              Baterías
-            </div>
-          </div>
-        </section>
+        
 
-        <section className="h-auto w-12/12 sm:w-4/4 p-4 sm:p-8 bg-color2 mt-6">
+        <section className="h-auto w-12/12 sm:w-4/4 p-4 sm:p-8 bg-color1 mt-6 mb-6">
           <h2 className="text-2xl sm:text-4xl font-roboto p-4 text-white">Opiniones</h2>
           <div className="flex flex-col sm:flex-row justify-around items-center mt-8">
             <div className="bg-white text-black w-full sm:w-1/3 m-3 p-4 rounded-lg shadow-lg flex flex-col justify-center items-center hover:scale-105 transition ease-in-out duration-200">

@@ -38,7 +38,7 @@ function Producto(props) {
   return (
     <>
       <div className="bg-white producto p-4 shadow-xl flex flex-col items-center justify-center h-80 w-72 border-color1 border rounded cursor-pointer hover:scale-105 transition ease-in-out relative" onClick={(e) => mostraDetalles(e, props.detalle, props.agregarCarrito)}>
-        <img src={props.img} alt="" height={100} className="h-4/6" />
+        <img src={props.img} alt="" height={100} className="h-4/6" alt={props.titulo} />
         <a href="#" className="h-1/6">
           {truncarTitulo(props.titulo)}
         </a>
@@ -49,9 +49,6 @@ function Producto(props) {
         >
           AGREGAR AL CARRITO
         </button>
-        {/*<div className={`${animacionCarrito ? "opacity-10" : "opacity-0"}   absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 text-white transition ease-in-out duration-500`}>
-          Producto Agregado al carrito
-        </div>*/}
       </div>
     </>
   );
