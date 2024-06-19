@@ -13,7 +13,7 @@ import Carrito from "./paginas/Carrito";
 import Checkout from "./paginas/Checkout";
 import Footer from "./components/Footer";
 import Chat from "./paginas/Chat";
-import Agregar from "./paginas/Agregar";
+
 
 import SolicitarServicio from "./paginas/SolicitarServicio";
 
