@@ -13,7 +13,10 @@ import Carrito from "./paginas/Carrito";
 import Checkout from "./paginas/Checkout";
 import Footer from "./components/Footer";
 import Chat from "./paginas/Chat";
+import Agregar from "./paginas/Agregar";
+
 import SolicitarServicio from "./paginas/SolicitarServicio";
+
 
 function App() {
   return (
@@ -31,7 +34,7 @@ function App() {
             <Route path="checkout" element={<Checkout />} />
             <Route path="chat" element={<Chat />} />
             <Route path="solicitarServicio" element={<SolicitarServicio />} />
-
+            
 
             <Route path="*" element={<NoPage />} />
           </Route>

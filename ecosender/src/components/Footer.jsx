@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      <div className="relative w-full bg-color1 sm:h-1/5 z-10 flex flex-col sm:flex-row items-center sm:items-start justify-around text-white">
+      <div className="relative w-full bg-color1  z-10 flex flex-col sm:flex-row items-center sm:items-start justify-around text-white">
         <img
           src="/img/ecoSenderIcono_Whute.png"
           alt=""
