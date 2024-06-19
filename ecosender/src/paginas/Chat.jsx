@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   collection,
   addDoc,
@@ -8,13 +8,47 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { obtenerIdCliente } from "../utilidades/cliente";
+import axios from "axios";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [clientId, setClientId] = useState(null); // Estado para almacenar el ID del cliente
+  const [clientId, setClientId] = useState(null);
   const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    const obtenerIdCliente = async () => {
+      const url = "https://ecosender.es/api2/public/api/v1/obtenerIdUsuario";
+      const jwt = localStorage.getItem("sesion");
+      const googleId = localStorage.getItem("googleId");
+
+      let data = {};
+      if (jwt) {
+        data = {
+          jwt: jwt,
+        };
+      } else if (googleId) {
+        data = {
+          googleId: googleId,
+        };
+      }
+
+      try {
+        const response = await axios.post(url, data);
+        return response.data;
+      } catch (error) {
+        console.error("Error al obtener el ID del cliente:", error);
+        return null;
+      }
+    };
+
+    const obtenerId = async () => {
+      const idCliente = await obtenerIdCliente();
+      setClientId(idCliente);
+    };
+
+    obtenerId();
+  }, []);
 
   useEffect(() => {
     if (!clientId) return;
@@ -22,24 +56,19 @@ const Chat = () => {
     const unsubscribe = onSnapshot(
       query(collection(db, "messages"), orderBy("timestamp", "asc")),
       (snapshot) => {
-        setMessages(
-          snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        const allMessages = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        const filteredMessages = allMessages.filter(
+          (message) => message.clientId === clientId
         );
+        setMessages(filteredMessages);
       }
     );
 
     return () => unsubscribe();
   }, [clientId]);
-
-  useEffect(() => {
-    const obtenerId = async () => {
-      let sesion = localStorage.getItem("sesion");
-      const idCliente = await obtenerIdCliente(sesion);
-      setClientId(idCliente); // Guarda el ID del cliente en el estado local
-    };
-
-    obtenerId();
-  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -50,20 +79,23 @@ const Chat = () => {
 
     if (newMessage.trim() === "" || !clientId) return;
 
-    await addDoc(collection(db, "messages"), {
-      clientId: clientId,
-      text: newMessage,
-      timestamp: serverTimestamp(),
-      isWorker: false, // Indica que el mensaje es del cliente
-    });
+    try {
+      await addDoc(collection(db, "messages"), {
+        clientId: clientId,
+        text: newMessage,
+        timestamp: serverTimestamp(),
+        isWorker: false,
+      });
 
-    setNewMessage("");
+      setNewMessage("");
+    } catch (error) {
+      console.error("Error al enviar el mensaje:", error);
+    }
   };
 
-  // Función para formatear la hora
   const formatTime = (timestamp) => {
     if (!timestamp || !timestamp.seconds) {
-      return ""; // Retorna una cadena vacía si no hay timestamp o si no tiene la propiedad seconds
+      return "";
     }
 
     const date = new Date(timestamp.seconds * 1000);
@@ -93,7 +125,10 @@ const Chat = () => {
           <div ref={messagesEndRef} />
         </div>
       </div>
-      <form onSubmit={handleSendMessage} className="p-4">
+      <form
+        onSubmit={handleSendMessage}
+        className="p-4 bg-gray-100 sticky bottom-0 w-full"
+      >
         <div className="flex space-x-2">
           <input
             type="text"

@@ -11,22 +11,11 @@ import Empleados from "./paginas/Empleados";
 import Cuenta from "./paginas/Cuenta";
 import Carrito from "./paginas/Carrito";
 import Checkout from "./paginas/Checkout";
-import Configurar from "./paginas/Configurar";
-
-
-//DEV
-import Agregar from "./paginas/Agregar";
 import Footer from "./components/Footer";
-import Administrador from "./paginas/Administrador";
 import Chat from "./paginas/Chat";
 import SolicitarServicio from "./paginas/SolicitarServicio";
 
-
-
-
 function App() {
-
-
   return (
     <>
       <Router>
@@ -35,20 +24,17 @@ function App() {
             <Route index element={<Principal />} />
             <Route path="servicios" element={<Servicios />} />
             <Route path="productos" element={<Productos />} />
-            <Route path="inicioSesion" element={<InicioSesion/>}/>
-            <Route path="empleados" element={<Empleados/>}/>
-            <Route path="cuenta" element={<Cuenta/>}/>
-            <Route path="agregar" element={<Agregar/>}/>
-            <Route path="administrador" element={<Administrador/>}/>
-            <Route path="carrito" element={<Carrito/>}/>
-            <Route path="checkout" element={<Checkout/>}/>
-            <Route path="chat" element={<Chat/>}/>
-            <Route path="solicitarServicio" element={<SolicitarServicio/>}/>
-            <Route path="configurar" element={<Configurar/>}/>
+            <Route path="inicioSesion" element={<InicioSesion />} />
+            <Route path="empleados" element={<Empleados />} />
+            <Route path="cuenta" element={<Cuenta />} />
+            <Route path="carrito" element={<Carrito />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="solicitarServicio" element={<SolicitarServicio />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
-        <Footer/>
+        <Footer />
       </Router>
     </>
   );

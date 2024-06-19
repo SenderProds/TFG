@@ -15,7 +15,7 @@ const InicioSesion = () => {
   }, [localStorage.getItem("sesion")]);
 
   const responseMessage = (googleData) => {
-    console.log(googleData);
+
 
     const url = "https://ecosender.es/api/decode.php";
     const data = {
@@ -27,12 +27,12 @@ const InicioSesion = () => {
         localStorage.setItem("googleId", response);
         window.location.href = "/cuenta";
       }
-      console.log(response);
+
     });
   };
 
   const errorMessage = (error) => {
-    console.log(error);
+    alert("Se ha producido un error: " + error);
   };
 
   /**
@@ -58,7 +58,7 @@ const InicioSesion = () => {
    * Muestra el formulario de inicio de sesion
    */
   const mostrarInicioSesion = () => {
-    console.log("Boton de inicio de sesion");
+   
     let formularioLogin = document.getElementById("formularioInicioSesion");
     let formularioRegistro = document.getElementById("formularioRegistro");
 
@@ -74,7 +74,7 @@ const InicioSesion = () => {
   return (
     <>
       <div className="w-full h-full text-center flex flex-col justify-center items-center">
-        <section className="bg-color1 rounded-lg shadow-xl p-4 w-5/6 sm:w-96">
+        <section className="bg-color1 rounded-lg shadow-xl p-4 w-5/6 sm:w-96 -mt-56">
           <TabGroup>
             <TabList variant="solid" defaultValue="1">
               <Tab value="1" onClick={mostrarInicioSesion}>
@@ -212,6 +212,7 @@ const InicioSesion = () => {
                   autoComplete="clave"
                   placeholder="Clave"
                   className="mt-2"
+                  minLength={8}
                 />
                 <button
                   type="submit"

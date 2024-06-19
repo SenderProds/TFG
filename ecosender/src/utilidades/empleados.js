@@ -19,10 +19,11 @@ export const comprobarEmpleado = (e) => {
 
     $.post(url, data).done((response) => {
         if(response != "false"){
-            console.log("Empleado Iniciado");
+
             localStorage.setItem('empleado', response);
+            window.location.href = "/empleados";
         }else{
-            console.log('Empleado Incorrecto');
+            alert('Empleado Incorrecto');
         }
     })
 }
@@ -42,11 +43,11 @@ export const comprobarJWTEmpleado = (jwt) => {
     return new Promise((resolve, reject) => {
         $.post(url, data)
         .done((response) => {
-            console.log(response);
+
             resolve(response);
         })
         .fail((jqXHR, textStatus, errorThrown) => {
-            console.log(jqXHR);
+            alert("Se ha producido un error:" + jqXHR);
             reject(errorThrown);
         });
     });
@@ -63,7 +64,7 @@ export const obtenerRangoEmpleado = (empleadoJWT) => {
     return new Promise((resolve, reject) => {
         $.post(url, data)
         .done((response) => {
-            console.log(response);
+
             resolve(response);
         })
         .fail((error) => {

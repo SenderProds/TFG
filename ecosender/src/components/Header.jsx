@@ -1,12 +1,12 @@
 import { Outlet, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { comprobarGoogleId, comprobarJWT } from "../utilidades/sesion";
-import { IoMdMenu } from "react-icons/io";
-import { IoMdClose } from "react-icons/io";
+import { IoMdMenu, IoMdClose } from "../components/Iconos";
 
 const Header = () => {
   const [estaLogeado, setEstaLogeado] = useState(false);
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [ocultarMenu, setOcultarMenu] = useState(true);
 
   useEffect(() => {
     const loggingStatus = localStorage.getItem("sesion");
@@ -38,12 +38,23 @@ const Header = () => {
   }, []);
 
   const toggleMenu = () => {
-    setMenuAbierto(!menuAbierto);
+    if (!menuAbierto) {
+      setOcultarMenu(false);
+      setTimeout(() => {
+        setMenuAbierto(true);
+      }, 100);
+    }else{
+
+      setMenuAbierto(false);
+      setTimeout(() => {
+        setOcultarMenu(true);
+      },100)
+    }
   };
 
   return (
     <>
-      <nav className="bg-color1 flex justify-between fixed w-full z-30 h-20 sm:h-28 shadow-xl sm:shadow-xl">
+      <nav className="bg-color1 flex justify-between fixed w-full z-40 h-20 sm:h-28 shadow-xl sm:shadow-xl">
         <ul className="w-1/5 xl:w-2/5 cursor-pointer flex items-center pl-4">
           <Link to="/">
             <img
@@ -64,7 +75,11 @@ const Header = () => {
             )}
           </button>
         </div>
-        <ul className={`text-white w-full sm:w-4/5 xl:w-2/5 justify-end sm:justify-around items-center text-xl transition-transform transform ${menuAbierto ? 'translate-x-0' : 'translate-x-full'} sm:transform-none fixed sm:static top-20 sm:top-auto right-0 bg-color1 sm:bg-transparent sm:flex flex-col sm:flex-row  shadow-xl sm:shadow-none`}>
+        <ul
+          className={` ${menuAbierto ? "translate-x-0" : "translate-x-full"} ${
+            ocultarMenu ? "hidden" : "block"
+          } text-white w-full sm:w-4/5 xl:w-2/5 justify-end sm:justify-around items-center text-xl transition-transform transform  sm:transform-none fixed sm:static top-20 sm:top-auto right-0 bg-color1 sm:bg-transparent sm:flex flex-col sm:flex-row  shadow-xl sm:shadow-none`}
+        >
           <li className="p-4 sm:p-0">
             <Link
               to="/"

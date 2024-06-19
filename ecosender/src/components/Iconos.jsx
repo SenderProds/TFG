@@ -7,12 +7,27 @@ import { FaRegEnvelope } from "react-icons/fa"; //Carta Sobre Solicitudes
 import { FiChevronsRight } from "react-icons/fi"; //Deslplegar derecha
 import { CiBoxes } from "react-icons/ci"; //Cajas /Pedidos
 import { IoKeyOutline } from "react-icons/io5"; //LLave
-import { 
+import {
   MdDriveFileRenameOutline,
   MdOutlineLocalPhone,
   MdOutlineMailOutline,
+  MdOutlinePassword,
+  MdSolarPower,
+  MdOutlineSupportAgent,
 } from "react-icons/md";
 import { HiOutlineIdentification } from "react-icons/hi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { FaRegSave } from "react-icons/fa";
+import { FaSolarPanel } from "react-icons/fa";
+import { PiInvoiceBold } from "react-icons/pi";
+import { FaFileDownload } from "react-icons/fa";
+import { PiShoppingCartLight } from "react-icons/pi";
+import { IoMdMenu } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
+import { MdModeEdit } from "react-icons/md";
+import { LuUsers } from "react-icons/lu";
+import { CiUser } from "react-icons/ci";
+
 
 
 
@@ -30,5 +45,19 @@ export {
   MdDriveFileRenameOutline,
   MdOutlineLocalPhone,
   MdOutlineMailOutline,
-  HiOutlineIdentification
+  HiOutlineIdentification,
+  MdOutlinePassword,
+  IoSettingsOutline,
+  FaRegSave,
+  MdSolarPower,
+  FaSolarPanel,
+  PiInvoiceBold,
+  FaFileDownload,
+  MdOutlineSupportAgent,
+  PiShoppingCartLight,
+  IoMdMenu,
+  IoMdClose,
+  MdModeEdit,
+  LuUsers,
+  CiUser,
 };

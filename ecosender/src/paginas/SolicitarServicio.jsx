@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Divider, Textarea } from "@tremor/react";
 import { Select, SelectItem } from "@tremor/react";
-import PruebaImagen from "../components/PruebaImagen";
+
 import validator from "validator";
 import $ from "jquery";
 import FormularioDatosNecesarios from "../components/FormularioDatosNecesarios";
+import axios from "axios";
 
 const SolicitarServicio = () => {
   const [servicioSeleccionado, setServicioSeleccionado] = useState();
@@ -60,7 +61,7 @@ const SolicitarServicio = () => {
     }
 
     if (Object.keys(errores).length > 0) {
-      console.log("Errores en el formulario:", errores);
+
       alert(
         "Hay errores en el formulario. Por favor, corrígelos e intenta nuevamente."
       );
@@ -83,25 +84,17 @@ const SolicitarServicio = () => {
     $.post(url, data)
       .done((response) => {
         if (response) {
-          console.log(response);
+
           setDatosNecesario(true);
         } else {
-          console.log(response);
+
           setDatosNecesario(false);
         }
       })
       .fail((error) => {
-        console.log(error);
+        alert("Se ha producido un error:" + error);
       });
-    console.log(
-      nombre,
-      apellidos,
-      dni,
-      telefono,
-      direccion,
-      ciudad,
-      codigoPostal
-    );
+ 
   };
 
   /**
@@ -111,7 +104,7 @@ const SolicitarServicio = () => {
   useEffect(() => {
     let servicio = localStorage.getItem("servicio");
     if (servicio) {
-      console.log(servicio);
+  
       setServicioSeleccionado(servicio);
       localStorage.removeItem("servicio");
     }
@@ -119,7 +112,7 @@ const SolicitarServicio = () => {
 
 
   const obtenerIdUsuario = () => {
-    let url = "https://ecosender.es/api/obtenerIdCliente.php";
+    let url = "https://ecosender.es/api2/public/api/v1/obtenerIdUsuario";
     let jwt = localStorage.getItem("sesion");
     let googleId = localStorage.getItem("googleId");
 
@@ -153,45 +146,41 @@ const SolicitarServicio = () => {
       "servicioSeleccionado"
     ).value;
     let mensajeFormulario = document.getElementById("mensajeFormulario").value;
-    let jwt = localStorage.getItem("sesion");
-    let googleId = localStorage.getItem("googleId");
+
 
     obtenerIdUsuario();
     //setIdUsuario(obtenerIdUsuario);
     const url = "https://ecosender.es/api/insertarSolicitud.php";
 
-    let data = {};
-    
-      data = {
+    let data = {
         idUsuario: idUsuario,
         mensaje: mensajeFormulario,
         servicio: servicioFormulario,
       };
     
 
-    $.post(url, data)
-      .done((response) => {
-        console.log(response);
+    axios.post(url, data)
+      .then((response) => {
+        console.log(response.data);
       })
-      .fail((error) => {
-        console.error(error);
+      .catch((error) => {
+        alert("Se ha producido un error: " + error);
       });
 
-    console.log(servicioFormulario);
-    console.log(mensajeFormulario);
+
   };
 
   /**
    * Comprueba que estan todos los datos del usuario correctamente
    */
   const comprobarDatos = () => {
-    console.log("Comprobando datos");
+
     let jwt = localStorage.getItem("sesion");
     let googleId = localStorage.getItem("googleId");
-    const url = "https://ecosender.es/api/comprobarDatos.php";
+    const url = "https://ecosender.es/api2/public/api/v1/comprobarDatos";
 
     if (jwt) {
-      console.log("Login por jwt");
+
       //Si esta registrado manualmente
       const data = {
         jwt: jwt,
@@ -199,9 +188,9 @@ const SolicitarServicio = () => {
 
       $.post(url, data)
         .done((response) => {
-          console.log(response);
+
           if (response != "true") {
-            console.log(response);
+
             setIdUsuario(response);
             setDatosNecesario(false);
           } else {
@@ -212,7 +201,7 @@ const SolicitarServicio = () => {
           console.error(error);
         });
     } else if (googleId) {
-      console.log("Login por google");
+
       //Si esta registrado con google
       const data = {
         googleId: googleId,
@@ -221,7 +210,7 @@ const SolicitarServicio = () => {
       $.post(url, data)
         .done((response) => {
           if (response != "true") {
-            console.log(response);
+
             setDatosNecesario(false);
           } else {
             setIdUsuario(response);
@@ -244,9 +233,9 @@ const SolicitarServicio = () => {
 
   return (
     <>
-      <div className="h-screen flex flex-col items-center justify-center bg-slate-200">
+      <div className="h-screen flex flex-col items-center justify-center bg-slate-200 -mt-6 md:-mt-16">
         {datosNecesarios ? (
-          <div className="rounded-xl w-2/4 shadow-md text-center bg-white p-4 flex flex-col items-center">
+          <div className="rounded-xl w-2/4 shadow-md text-center bg-white p-4 flex flex-col items-center ">
             <h1 className="font-bold text-2xl">Solicitud de Servicio</h1>
             <p>
               Completa el siguiente formulario para solicitar nuestros
@@ -270,21 +259,21 @@ const SolicitarServicio = () => {
                   <SelectItem
                     value="1"
                     className="flex justify-between gap-2 cursor-pointer hover:bg-black"
-                    icon={PruebaImagen}
+                   
                   >
                     Planificacion
                   </SelectItem>
                   <SelectItem
                     value="2"
                     className="flex justify-between gap-2"
-                    icon={PruebaImagen}
+                    
                   >
                     Instalaciones
                   </SelectItem>
                   <SelectItem
                     value="3"
                     className="flex justify-between gap-2"
-                    icon={PruebaImagen}
+                   
                   >
                     Mantenimiento
                   </SelectItem>

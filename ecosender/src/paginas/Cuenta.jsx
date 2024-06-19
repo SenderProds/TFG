@@ -27,7 +27,7 @@ const Cuenta = () => {
       case "Instalaciones":
         return <InstalacionesUsuario />;
       case "Pedidos":
-        return <PedidosUsuario id={idUsuario} />;
+        return <PedidosUsuario />;
     }
   };
   useEffect(() => {
@@ -53,10 +53,10 @@ const Cuenta = () => {
         try {
           let respuesta = await comprobarGoogleId(googleId);
           setIdUsuario(respuesta);
-          console.log(respuesta);
+
           setEstaLogeado(respuesta !== "false");
         } catch (error) {
-          console.error(error);
+          alert("Se ha producido un error: " + error);
         }
       };
 
@@ -65,8 +65,7 @@ const Cuenta = () => {
       redirigirIniciarSesion();
     }
 
-    //setEstaLogeado(loggingStatus === "true");
-    console.log(estaLogeado);
+
   }, [localStorage.getItem("sesion")]);
 
   const cerrarSesion = () => {
@@ -83,7 +82,7 @@ const Cuenta = () => {
    * Si no esta logeado redirige al login
    */
   const redirigirIniciarSesion = () => {
-    console.log(estaLogeado);
+
     if (estaLogeado === false) {
       navigate("/inicioSesion");
     }
@@ -142,7 +141,7 @@ const Cuenta = () => {
                   desplegarMenu ? "translate-x-0" : "-translate-x-full"
                 } ${
                   ocultarMenu ? "hidden" : "fixed"
-                } bg-white w-full h-full p-12 md:static md:p-0 md:w-1/6 md:translate-x-0 md:h-screen md:flex md:flex-col md:border md:border-2 md:border-t-0 md:border-b-0 md:block md:pr-2 transition-transform duration-200 ease-in-out`}
+                } bg-white w-full h-full p-12 md:static md:p-0 md:w-1/6 md:translate-x-0 md:h-screen md:flex md:flex-col md:border md:border-2 md:border-t-0 md:border-b-0 md:block md:pr-2 transition-transform duration-200 ease-in-out z-10`}
               >
                 <button
                   className="w-full flex items-center justify-start pl-9 p-4 md:rounded-r-full bg-slate-300 mt-2"

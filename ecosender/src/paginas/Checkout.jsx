@@ -13,7 +13,7 @@ const Checkout = () => {
 
 
   const realizarPedido = () => {
-    console.log("Ejecutando function de realizar pedido");
+
     let productosCarrito = localStorage.getItem("carrito");
     let jwt = localStorage.getItem("sesion");
     let googleId = localStorage.getItem("googleId");
@@ -29,7 +29,6 @@ const Checkout = () => {
         .done((response) => {
           setIdPedido(response);
           localStorage.removeItem("carrito");
-          console.log(response);
         })
         .fail((error) => {
           console.error(error);
@@ -43,16 +42,16 @@ const Checkout = () => {
       $.post(url, data).done((response) => {
         setIdPedido(response);
         localStorage.removeItem("carrito");
-        console.log(response);
+
       });
-      console.log("Google id");
+
     }
   };
 
   const comprobarDatos = () => {
     let jwt = localStorage.getItem("sesion");
     let googleId = localStorage.getItem("googleId");
-    const url = "https://ecosender.es/api/comprobarDatos.php";
+    const url = "https://ecosender.es/api2/public/api/v1/comprobarDatos";
 
     if (jwt) {
       //Si esta registrado manualmente
@@ -62,9 +61,9 @@ const Checkout = () => {
 
       $.post(url, data)
         .done((response) => {
-          console.log(response);
+
           if (response != "true") {
-            console.log(response);
+
             setIdUsuario(response);
             setDatosNecesario(false);
           } else {
@@ -83,7 +82,7 @@ const Checkout = () => {
       $.post(url, data)
         .done((response) => {
           if (response != "true") {
-            console.log(response);
+
             setIdUsuario(response);
             setDatosNecesario(false);
           } else {
@@ -147,7 +146,7 @@ const Checkout = () => {
     }
 
     if (Object.keys(errores).length > 0) {
-      console.log("Errores en el formulario:", errores);
+
       alert(
         "Hay errores en el formulario. Por favor, corrígelos e intenta nuevamente."
       );
@@ -170,25 +169,17 @@ const Checkout = () => {
     $.post(url, data)
       .done((response) => {
         if (response) {
-          console.log(response);
+
           setDatosNecesario(true);
         } else {
-          console.log(response);
+
           setDatosNecesario(false);
         }
       })
       .fail((error) => {
-        console.log(error);
+        alert("Se ha producido un error:" + error);
       });
-    console.log(
-      nombre,
-      apellidos,
-      dni,
-      telefono,
-      direccion,
-      ciudad,
-      codigoPostal
-    );
+
   };
 
   useEffect(() => {
@@ -198,11 +189,9 @@ const Checkout = () => {
   }, []);
 
   useEffect(() => {
-    console.log(datosNecesarios);
+
     if (datosNecesarios) {
       realizarPedido();
-    } else {
-      console.log("Se necesitan datos para realizar el pedido");
     }
   }, [datosNecesarios]);
 

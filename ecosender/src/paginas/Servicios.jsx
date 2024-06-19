@@ -19,23 +19,20 @@ const Servicios = () => {
 
     if (sesion) {
       let respuesta = comprobarJWT(sesion);
-      console.log(respuesta);
+
 
       if (respuesta !== "false") {
         localStorage.setItem("servicio", idServicio);
-        console.log("Solicitud Servicio " + idServicio);
+
         navigate("/solicitarServicio");
-      }else{
+      } else {
         setMostrarModal(true);
       }
-
-      
     } else if (googleId) {
       let respuesta = comprobarGoogleId(googleId);
-      console.log(respuesta);
 
       localStorage.setItem("servicio", idServicio);
-      console.log("Solicitud Servicio " + idServicio);
+
       navigate("/solicitarServicio");
     } else {
       setMostrarModal(true);

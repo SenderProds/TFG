@@ -10,9 +10,9 @@ export function agregarAlCarrito(id){
 
 
         localStorage.setItem("carrito", JSON.stringify(carritoModificado));
-        console.log("Esta el carrito en la sesion");
+
     }else{
-        console.log("Se va agregar un producto al carrito --> ", id);
+       
         let nuevoCarrito = {};
         nuevoCarrito[id] = 1;
 

@@ -1,5 +1,6 @@
 
 import $, { error } from "jquery";
+import axios from "axios";
 
 /**
  * Comprueba si el usuario introducido por post es correcto
@@ -9,20 +10,21 @@ import $, { error } from "jquery";
  */
 export const comprobarLogin = (e) => {
   e.preventDefault();
-  const url = "https://ecosender.es/api/login/comprobarUsuario.php";
+  const url = "https://ecosender.es/api2/public/api/v1/comprobarUsuario";
 
   const data = {
-    user: document.getElementById("usuario").value,
+    nombreUsuario: document.getElementById("usuario").value,
     clave: document.getElementById("clave").value,
   };
 
   $.post(url, data).done((response) => {
     if (response != "false") {
-      console.log("Sesion Iniciada");
+
+
       localStorage.setItem("sesion", response);
       window.location.href = "/cuenta";
     } else {
-      console.log("Sesion Incorrecta");
+      alert("Sesion Incorrecta");
     }
   });
 };
@@ -38,21 +40,29 @@ export const registro = (e) => {
   let clave = document.getElementById("claveReg").value;
 
   if (correo && nombreUsuario && clave) {
-    const url = "https://ecosender.es/api/login/registro.php";
+    //const url = "https://ecosender.es/api/login/registro.php";
+    const url = "https://ecosender.es/api2/public/api/v1/agregarUsuario";
+
     const data = {
       correo: correo,
       nombreUsuario: nombreUsuario,
       clave: clave,
     };
 
-    $.post(url, data).done((response) => {
-      if (response == "true") {
-        console.log("Usuario registrado");
+    
+    axios.post(url, data).then((response) => {
+      if (response.data != "false") {
+
         window.location.href = "/inicioSesion";
       } else {
-        console.log("El usuario no se ha registro");
+        alert("El usuario no se ha registro", response.data);
       }
+    }).catch((error) => {
+      alert("No es posible registrar el usuario, comprueba que todos los campos estan correctos.");
     });
+    
+
+
   } else {
     alert("Tiene que completar todos los campos");
   }
@@ -64,7 +74,7 @@ export const registro = (e) => {
  * Comprueba el token JWT para comprobar que sea legitimo
  */
 export async function comprobarJWT(jwt) {
-  const url = "https://ecosender.es/api/comprobarJWT.php";
+  const url = "https://ecosender.es/api2/public/api/v1/comprobarJWT";
   const data = {
     jwt: jwt,
   };
@@ -72,18 +82,18 @@ export async function comprobarJWT(jwt) {
   return new Promise((resolve, reject) => {
     $.post(url, data)
       .done((response) => {
-        console.log(response);
+
         resolve(response);
       })
       .fail((jqXHR, textStatus, errorThrown) => {
-        console.log(jqXHR);
+        console.error(jqXHR);
         reject(errorThrown); // Rechaza la promesa en caso de error
       });
   });
 }
 
 export async function comprobarGoogleId(googleId){
-  const url = "https://ecosender.es/api/comprobarGoogleId.php";
+  const url = "https://ecosender.es/api2/public/api/v1/comprobarGoogleId";
   const data = {
     googleId: googleId,
   };
@@ -91,11 +101,10 @@ export async function comprobarGoogleId(googleId){
   return new Promise((resolve, reject) => {
     $.post(url, data)
     .done((response) => {
-      console.log(response);
       resolve(response);
     })
     .fail((error) => {
-      console.log(error);
+      alert("Se ha producido un error: " + error);
       reject(error);
     });
   });

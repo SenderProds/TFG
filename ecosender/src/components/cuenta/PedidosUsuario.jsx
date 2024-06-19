@@ -7,19 +7,20 @@ import {
   MdOutlineLocalPhone,
   MdOutlineMailOutline,
   HiOutlineIdentification,
+  PiInvoiceBold,
+  FaFileDownload,
 } from "../../components/Iconos";
 
-import { PiInvoiceBold } from "react-icons/pi";
-import { FaFileDownload } from "react-icons/fa";
 import axios from "axios";
 
-const PedidosUsuario = (prop) => {
+const PedidosUsuario = () => {
   const [pedidos, setPedidos] = useState([]);
-  const url = "https://ecosender.es/api/obtenerPedidosUsuario.php";
+  const [idUsuario, setIdUsuario] = useState();
+  const url = "https://ecosender.es/api2/public/api/v1/obtenerPedidosUsuario";
 
   const obtenerPedidos = () => {
     const data = {
-      id: prop.id,
+      id: idUsuario,
     };
 
     axios
@@ -29,17 +30,50 @@ const PedidosUsuario = (prop) => {
         },
       })
       .then((response) => {
-        setPedidos(response.data);
-        console.log(response);
+        if (response.data !== "false") {
+          setPedidos(response.data);
+        }
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
+  const obtenerIdUsuario = () => {
+    const url = "https://ecosender.es/api2/public/api/v1/obtenerIdUsuario";
+    const jwt = localStorage.getItem("sesion");
+    const googleId = localStorage.getItem("googleId");
+
+
+    let data = {};
+    if(jwt){
+      data = {
+        jwt: jwt
+      }
+    }else if(googleId){
+      data = {
+        googleId: googleId
+      }
+    }
+
+    axios.post(url, data).then((response) => {
+      setIdUsuario(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  }
+
   useEffect(() => {
-    obtenerPedidos();
+    obtenerIdUsuario();
   }, []);
+
+  useEffect(() => {
+    if(idUsuario){
+      obtenerPedidos();
+    }
+    
+  }, [idUsuario]);
   return (
     <>
       <div className=" flex justify-center ">
@@ -94,32 +128,43 @@ const PedidosUsuario = (prop) => {
                 </th>
               </tr>
             </thead>
-            {pedidos ? (<>
-              {pedidos.map((ped) => (
-              <tr
-                key={ped.id}
-                className=" text-center hover:bg-slate-300 cursor-pointer"
-              >
-                <td className="p-4 text-xs sm:text-base ">{ped.id}</td>
-                <td className="text-xs sm:text-base">{ped.id_cliente}</td>
-                <td className="hidden md:block text-xs sm:text-base">{ped.fecha}</td>
-                <td className="text-xs sm:text-base">{ped.hora}</td>
-                <td className="text-xs sm:text-base">{ped.total}€</td>
+            {pedidos ? (
+              <>
+              <tbody>
 
-                <td className="text-xs sm:text-base">
-                  <a
-                    href={"https://ecosender.es/api/fact/" + ped.id + ".pdf"}
-                    download={ped.id + ".pdf"}
-                    className="text-blue-500 flex justify-center items-center text-xl sm:text-lg"
+              
+                {pedidos.map((ped) => (
+                  <tr
+                    key={ped.id}
+                    className=" text-center hover:bg-slate-300 cursor-pointer"
                   >
-                    <FaFileDownload />
-                    <p className="hidden sm:block">PDF</p>
-                  </a>
-                </td>
-              </tr>
-            ))}
-            </>) : <></>}
-            
+                    <td className="p-4 text-xs sm:text-base ">{ped.id}</td>
+                    <td className="text-xs sm:text-base">{ped.id_cliente}</td>
+                    <td className="hidden md:block text-xs sm:text-base">
+                      {ped.fecha}
+                    </td>
+                    <td className="text-xs sm:text-base">{ped.hora}</td>
+                    <td className="text-xs sm:text-base">{ped.total}€</td>
+
+                    <td className="text-xs sm:text-base">
+                      <a
+                        href={
+                          "https://ecosender.es/api/fact/" + ped.id + ".pdf"
+                        }
+                        download={ped.id + ".pdf"}
+                        className="text-blue-500 flex justify-center items-center text-xl sm:text-lg"
+                      >
+                        <FaFileDownload />
+                        <p className="hidden sm:block">PDF</p>
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+                </tbody>
+              </>
+            ) : (
+              <>No hay pedidos</>
+            )}
           </table>
         </div>
       </div>

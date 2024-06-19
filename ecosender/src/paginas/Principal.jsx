@@ -1,4 +1,19 @@
+import axios from "axios";
+
 function Principal() {
+  const obtenerImagenAleatoria = (opinion) => {
+    const url = "https://randomuser.me/api/";
+    axios
+      .get(url)
+      .then((response) => {
+        document.getElementById(opinion).src =
+          response.data.results[0].picture.large;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <>
       <div className="w-full text-center flex flex-col justify-center items-center">
@@ -130,24 +145,49 @@ function Principal() {
           </div>
         </section>
 
-        <section className="h-auto w-11/12 sm:w-3/4 p-4 sm:p-8 m-6 bg-gray-100 rounded-lg">
-          <h2 className="text-2xl sm:text-4xl font-roboto p-4">Opiniones</h2>
+        <section className="h-auto w-12/12 sm:w-4/4 p-4 sm:p-8 bg-color2 mt-6">
+          <h2 className="text-2xl sm:text-4xl font-roboto p-4 text-white">Opiniones</h2>
           <div className="flex flex-col sm:flex-row justify-around items-center mt-8">
-            <div className="bg-white text-black w-full sm:w-1/3 m-3 p-4 rounded-lg shadow-lg">
+            <div className="bg-white text-black w-full sm:w-1/3 m-3 p-4 rounded-lg shadow-lg flex flex-col justify-center items-center hover:scale-105 transition ease-in-out duration-200">
+              <img
+                src={obtenerImagenAleatoria("opinion1")}
+                alt=""
+                height={100}
+                width={100}
+                id="opinion1"
+                className="rounded-full shadow-md"
+              />
+
               <p className="text-sm sm:text-base">
                 "EcoSender hizo que la transición a la energía solar fuera muy
                 sencilla y económica. ¡Altamente recomendados!"
               </p>
               <p className="text-sm sm:text-base mt-2">- Cliente Satisfecho</p>
             </div>
-            <div className="bg-white text-black w-full sm:w-1/3 m-3 p-4 rounded-lg shadow-lg">
+            <div className="bg-white text-black w-full sm:w-1/3 m-3 p-4 rounded-lg shadow-lg flex flex-col justify-center items-center hover:scale-105 transition ease-in-out duration-200">
+              <img
+                src={obtenerImagenAleatoria("opinion2")}
+                alt=""
+                height={100}
+                width={100}
+                id="opinion2"
+                className="rounded-full shadow-md"
+              />
               <p className="text-sm sm:text-base">
                 "Su equipo de soporte es increíble. Resolvieron todas mis dudas
                 y me ayudaron a elegir el mejor sistema para mi hogar."
               </p>
               <p className="text-sm sm:text-base mt-2">- Cliente Satisfecho</p>
             </div>
-            <div className="bg-white text-black w-full sm:w-1/3 m-3 p-4 rounded-lg shadow-lg">
+            <div className="bg-white text-black w-full sm:w-1/3 m-3 p-4 rounded-lg shadow-lg flex flex-col justify-center items-center hover:scale-105 transition ease-in-out duration-200">
+              <img
+                src={obtenerImagenAleatoria("opinion3")}
+                alt=""
+                height={100}
+                width={100}
+                id="opinion3"
+                className="rounded-full shadow-md"
+              />
               <p className="text-sm sm:text-base">
                 "La instalación fue rápida y profesional. Ahora estoy ahorrando
                 en mis facturas de energía todos los meses."
@@ -157,31 +197,7 @@ function Principal() {
           </div>
         </section>
 
-        <section className="h-auto w-11/12 sm:w-3/4 p-4 sm:p-8 m-6">
-          <h2 className="text-2xl sm:text-4xl font-roboto p-4">Contacto</h2>
-          <form className="w-full flex flex-col items-center">
-            <input
-              type="text"
-              placeholder="Nombre"
-              className="w-full sm:w-1/2 p-2 m-2 border rounded-lg"
-            />
-            <input
-              type="email"
-              placeholder="Correo Electrónico"
-              className="w-full sm:w-1/2 p-2 m-2 border rounded-lg"
-            />
-            <textarea
-              placeholder="Mensaje"
-              className="w-full sm:w-1/2 p-2 m-2 border rounded-lg"
-            ></textarea>
-            <button
-              type="submit"
-              className="bg-color1 text-white w-full sm:w-1/2 p-2 m-2 rounded-lg"
-            >
-              Enviar
-            </button>
-          </form>
-        </section>
+        
       </div>
     </>
   );

@@ -9,11 +9,11 @@ export const obtenerIdCliente = (clienteJWT) => {
     return new Promise((resolve, reject) => {
         $.post(url, data)
         .done((response) => {
-            console.log(response);
+
             resolve(response);
         })
         .fail((error) => {
-            console.error(error);
+
             reject(error);
         });
     });

@@ -203,7 +203,7 @@ const Configurar = () => {
   const obtenerDatosNecesarios = () => {
     console.log(idUsuario);
     const url =
-      "http://localhost/TFG/laravel/ecosender-api/public/api/v1/obtenerDatosUsuario?id=" +
+      "https://ecosender.es/api2/public/api/v1/obtenerDatosUsuario?id=" +
       idUsuario;
 
     axios.get(url).then((response) => {
@@ -315,7 +315,7 @@ const Configurar = () => {
   //Obtiene el id del usuario
   const obtenerIdUsuario = async () => {
     const url =
-      "http://localhost/TFG/laravel/ecosender-api/public/api/v1/obtenerIdUsuario";
+      "https://ecosender.es/api2/public/api/v1/obtenerIdUsuario";
     let googleId = localStorage.getItem("googleId");
     let jwt = localStorage.getItem("sesion");
 
