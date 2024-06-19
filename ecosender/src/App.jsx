@@ -31,6 +31,8 @@ function App() {
             <Route path="checkout" element={<Checkout />} />
             <Route path="chat" element={<Chat />} />
             <Route path="solicitarServicio" element={<SolicitarServicio />} />
+
+
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
