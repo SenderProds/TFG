@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <>
@@ -15,19 +17,19 @@ const Footer = () => {
             <p className="font-medium text-white">Productos</p>
             <ul className="list-none text-gray-300">
               <li>
-                <a href="">Placas Solares</a>
+                <Link to="/productos">Placas Solares</Link>
               </li>
               <li>
-                <a href="">Kit Solar Aislada</a>
+                <Link to="/productos">Kit Solar Aislada</Link>
               </li>
               <li>
-                <a href="">Baterias</a>
+                <Link to="/productos">Baterias</Link>
               </li>
               <li>
-                <a href="">Inversores</a>
+                <Link to="/productos">Inversores</Link>
               </li>
               <li>
-                <a href="">Reguladores</a>
+                <Link to="/productos">Reguladores</Link>
               </li>
             </ul>
           </div>
@@ -36,13 +38,17 @@ const Footer = () => {
             <p className="font-medium text-gray-200">Servicios</p>
             <ul className="list-none text-gray-300">
               <li>
-                <a href="">Planificacion</a>
+              <Link to="/servicios">Planificacion</Link>
+
+
               </li>
               <li>
-                <a href="">Instalacion</a>
+              <Link to="/servicios">Instalacion</Link>
+
               </li>
               <li>
-                <a href="">Mantenimiento</a>
+              <Link to="/servicios">Mantenimiento</Link>
+
               </li>
             </ul>
           </div>
@@ -50,14 +56,10 @@ const Footer = () => {
           <div>
             <p className="font-medium text-gray-200">Enlaces Utiles</p>
             <ul className="list-none text-gray-300">
+
               <li>
-                <a href="">Contacto</a>
-              </li>
-              <li>
-                <a href="">Preguntas Frecuentes</a>
-              </li>
-              <li>
-                <a href="">Chat en vivo</a>
+              <Link to="/chat">Chat en vivo</Link>
+
               </li>
             </ul>
           </div>
